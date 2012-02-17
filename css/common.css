@@ -1,0 +1,36 @@
+/* ############### CUSTOM FONTS ############### */
+@font-face {
+    font-family: 'DroidSans';
+    src: url('fonts/droidsans-webfont.eot');
+    src: url('fonts/droidsans-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/droidsans-webfont.woff') format('woff'),
+         url('fonts/droidsans-webfont.ttf') format('truetype'),
+         url('fonts/droidsans-webfont.svg#DroidSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DroidSansBold';
+    src: url('fonts/droidsans-bold-webfont.eot');
+    src: url('fonts/droidsans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/droidsans-bold-webfont.woff') format('woff'),
+         url('fonts/droidsans-bold-webfont.ttf') format('truetype'),
+         url('fonts/droidsans-bold-webfont.svg#DroidSansBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body { margin-top: 1.0em; background-color: #73AF59; font-family: 'DroidSans', Helvetica, Arial, FreeSans, san-serif; color: #4b5457; }
+#container { margin: 0 auto; width: 768px;}
+h1 { font-size: 3.8em; color: #fff; margin-bottom: 3px; }
+h1 .small { font-size: 0.4em; }
+h1 a { text-decoration: none }
+h2 { font-size: 1.5em; color: #fff; }
+h3 { text-align: center; color: #fff; }
+a { color: #fff; }
+.description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+.download { float: right; }
+pre { background: #000; color: #fff; padding: 15px;}
+hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+.footer { text-align:center; padding-top:30px; font-style: italic; }

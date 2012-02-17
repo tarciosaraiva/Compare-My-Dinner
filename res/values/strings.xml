@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Compare My Dinner</string>
+    <string name="search_food">Search Food</string>
+    <string name="where_eating">Where Am I Eating?</string>
+    <string name="what_have_been_eating">What have I been eating?</string>
+
+</resources>

@@ -5,11 +5,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
+import org.comparemydinner.util.PreferenceHelper;
+import org.comparemydinner.util.Utils;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,11 +24,17 @@ public class MainActivity extends Activity implements OnClickListener {
 
   private static final String TAG = "MainActivity";
 
+  private static final int MENU_ABOUT = 0;
+
+  private static final int MENU_SETTINGS = 1;
+
   private Button foodOne, foodTwo, compare;
 
   private TableRow foodCompareRow;
 
   private long foodOneId, foodTwoId;
+
+  private PreferenceHelper mPreferenceHelper;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
@@ -131,6 +142,31 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     super.onResume();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    super.onCreateOptionsMenu(menu);
+
+    menu.add(0, MENU_ABOUT, 0, R.string.menu_about).setIcon(android.R.drawable.ic_menu_help);
+    menu.add(0, MENU_SETTINGS, 0, R.string.menu_settings).setIcon(
+        android.R.drawable.ic_menu_preferences);
+
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(final MenuItem item) {
+    switch (item.getItemId()) {
+      case MENU_ABOUT:
+        Utils.showAbout(this, mPreferenceHelper);
+        return true;
+      case MENU_SETTINGS:
+        startActivity(new Intent(this, SettingsActivity.class));
+        return true;
+    }
+    return false;
+
   }
 
   @Override

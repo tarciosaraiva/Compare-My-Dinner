@@ -10,58 +10,105 @@ package org.comparemydinner.activity;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int aqua=0x7f05000c;
+        public static final int background1=0x7f050006;
+        public static final int background2=0x7f050007;
+        public static final int background3=0x7f050008;
+        public static final int black=0x7f05000a;
+        public static final int blue=0x7f05000f;
+        public static final int foreground1=0x7f050004;
+        public static final int foreground2=0x7f050005;
+        public static final int gray=0x7f05000b;
+        public static final int red=0x7f05000d;
+        public static final int title_background=0x7f050000;
+        public static final int title_separator=0x7f050003;
+        public static final int title_text=0x7f050001;
+        public static final int title_text_alt=0x7f050002;
+        public static final int white=0x7f050009;
+        public static final int yellow=0x7f05000e;
+    }
     public static final class dimen {
-        public static final int lbl_padding=0x7f050001;
-        public static final int list_padding=0x7f050002;
-        public static final int tbl_padding=0x7f050000;
+        public static final int lbl_padding=0x7f060001;
+        public static final int list_padding=0x7f060002;
+        public static final int tbl_padding=0x7f060000;
+        public static final int text_size_large=0x7f060008;
+        public static final int text_size_medium=0x7f060007;
+        public static final int text_size_small=0x7f060006;
+        public static final int text_size_tiny=0x7f060005;
+        public static final int title_height=0x7f060003;
+        public static final int welcome_message_height=0x7f060004;
     }
     public static final class drawable {
         public static final int logo=0x7f020000;
     }
     public static final class id {
-        public static final int button1=0x7f070013;
-        public static final int button2=0x7f070015;
-        public static final int cals1=0x7f070003;
-        public static final int cals2=0x7f070009;
-        public static final int carbs1=0x7f070005;
-        public static final int carbs2=0x7f07000b;
-        public static final int chol1=0x7f070007;
-        public static final int chol2=0x7f07000d;
-        public static final int compareBtn=0x7f070017;
-        public static final int fat1=0x7f070004;
-        public static final int fat2=0x7f07000a;
-        public static final int foodCompareRow=0x7f070016;
-        public static final int foodSearchRowOne=0x7f070012;
-        public static final int foodSearchRowTwo=0x7f070014;
-        public static final int food_description=0x7f070010;
-        public static final int food_id=0x7f07000e;
-        public static final int food_name=0x7f07000f;
-        public static final int imageView1=0x7f070000;
-        public static final int linearLayout1=0x7f070002;
-        public static final int linearLayout2=0x7f070008;
-        public static final int prot1=0x7f070006;
-        public static final int prot2=0x7f07000c;
-        public static final int tableLayout1=0x7f070011;
-        public static final int textView1=0x7f070001;
+        public static final int about_msg=0x7f090014;
+        public static final int button1=0x7f09001a;
+        public static final int button2=0x7f09001c;
+        public static final int cals1=0x7f090006;
+        public static final int cals2=0x7f09000f;
+        public static final int carbs1=0x7f090008;
+        public static final int carbs2=0x7f090011;
+        public static final int chol1=0x7f09000a;
+        public static final int chol2=0x7f090013;
+        public static final int compareBtn=0x7f09001e;
+        public static final int fat1=0x7f090007;
+        public static final int fat2=0x7f090010;
+        public static final int food1=0x7f090004;
+        public static final int food2=0x7f09000d;
+        public static final int foodCompareRow=0x7f09001d;
+        public static final int foodSearchRowOne=0x7f090019;
+        public static final int foodSearchRowTwo=0x7f09001b;
+        public static final int food_description=0x7f090017;
+        public static final int food_id=0x7f090015;
+        public static final int food_name=0x7f090016;
+        public static final int imageView1=0x7f090000;
+        public static final int linearLayout1=0x7f090003;
+        public static final int linearLayout2=0x7f09000c;
+        public static final int prot1=0x7f090009;
+        public static final int prot2=0x7f090012;
+        public static final int scroll1=0x7f090002;
+        public static final int scroll2=0x7f09000b;
+        public static final int serving_descr1=0x7f090005;
+        public static final int serving_descr2=0x7f09000e;
+        public static final int tableLayout1=0x7f090018;
+        public static final int textView1=0x7f090001;
     }
     public static final class layout {
         public static final int comparison=0x7f030000;
-        public static final int list_item=0x7f030001;
-        public static final int main=0x7f030002;
-        public static final int search=0x7f030003;
+        public static final int dialog_about=0x7f030001;
+        public static final int list_item=0x7f030002;
+        public static final int main=0x7f030003;
+        public static final int search=0x7f030004;
     }
     public static final class string {
-        public static final int app_name=0x7f060000;
-        public static final int cals=0x7f060005;
-        public static final int carbs=0x7f060006;
-        public static final int chol=0x7f060009;
-        public static final int compare=0x7f06000a;
-        public static final int fat=0x7f060007;
-        public static final int prot=0x7f060008;
-        public static final int search_food=0x7f060001;
-        public static final int search_hint=0x7f060004;
-        public static final int what_have_been_eating=0x7f060003;
-        public static final int where_eating=0x7f060002;
+        public static final int about_msg=0x7f07000e;
+        public static final int app_name=0x7f070000;
+        public static final int cals=0x7f070005;
+        public static final int carbs=0x7f070006;
+        public static final int chol=0x7f070009;
+        public static final int compare=0x7f07000a;
+        public static final int fat=0x7f070007;
+        public static final int menu_about=0x7f07000b;
+        public static final int menu_new_comparison=0x7f07000d;
+        public static final int menu_settings=0x7f07000c;
+        public static final int prot=0x7f070008;
+        public static final int search_food=0x7f070001;
+        public static final int search_hint=0x7f070004;
+        public static final int what_have_been_eating=0x7f070003;
+        public static final int where_eating=0x7f070002;
+    }
+    public static final class style {
+        public static final int DialogTextMedium=0x7f080003;
+        public static final int DialogTextSmall=0x7f080004;
+        /**  Base application theme is the default theme. 
+         */
+        public static final int Theme=0x7f080000;
+        /**  Variation on the Light theme that turns off the title 
+         */
+        public static final int Theme_TramHunterStyle=0x7f080001;
+        public static final int nutrientInfo=0x7f080002;
     }
     public static final class xml {
         public static final int searchable=0x7f040000;

@@ -1,12 +1,11 @@
 package org.comparemydinner.activity;
 
 import static android.content.Intent.ACTION_SEARCH;
+import static org.comparemydinner.util.Utils.PROGRESS_DIALOG;
 
-import org.comparemydinner.model.JSONRecipeResponse;
 import org.comparemydinner.model.JSONSearchResponse;
 import org.comparemydinner.model.Recipe;
 import org.comparemydinner.model.Recipes;
-import org.comparemydinner.service.GetRecipeService;
 import org.comparemydinner.service.SearchRecipeService;
 import org.comparemydinner.task.BaseAsyncTask;
 import org.comparemydinner.util.Utils;
@@ -14,11 +13,11 @@ import org.comparemydinner.util.Utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,8 +31,6 @@ import com.google.gson.Gson;
 public class SearchListActivity extends ListActivity implements OnItemClickListener {
 
   private static final String TAG = "SearchActivity";
-
-  private static final int PROGRESS_DIALOG = 1;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
@@ -59,6 +56,11 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
     if (ACTION_SEARCH.equals(intent.getAction())) {
       Log.d(TAG, "Searching for food");
       final String query = intent.getStringExtra(SearchManager.QUERY);
+
+      SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+          RecentSearchesProvider.AUTHORITY, RecentSearchesProvider.MODE);
+      suggestions.saveRecentQuery(query, null);
+
       new SearchProgressTask(this, PROGRESS_DIALOG).execute(query);
     }
   }
@@ -78,26 +80,12 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
 
   @Override
   protected Dialog onCreateDialog(final int id) {
-    Dialog dialog = null;
-
-    switch (id) {
-      case PROGRESS_DIALOG:
-        dialog = ProgressDialog.show(SearchListActivity.this, "", "Querying...", true);
-        break;
-      default:
-        break;
-    }
-
-    return dialog;
+    return Utils.getProgressDialog(id, SearchListActivity.this);
   }
 
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    new GetRecipeProgressTask(this, PROGRESS_DIALOG).execute(String.valueOf(id));
-  }
-
-  private void processClickFor(final Recipe recipe) {
-    Utils.goHome(SearchListActivity.this, recipe);
+    Utils.goHome(SearchListActivity.this, id);
   }
 
   // class for searching
@@ -134,36 +122,4 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
 
   }
 
-  // sub class to get the recipe
-  class GetRecipeProgressTask extends BaseAsyncTask<JSONRecipeResponse> {
-
-    public GetRecipeProgressTask(Activity activity, int dialogId) {
-      super(activity, dialogId);
-    }
-
-    @Override
-    protected JSONRecipeResponse doSearch(final String query) {
-      JSONRecipeResponse response = null;
-      final String jsonMsg = new GetRecipeService().execute(query);
-
-      try {
-        response = new Gson().fromJson(jsonMsg, JSONRecipeResponse.class);
-      } catch (Exception e) {
-        Log.e(TAG, e.getMessage());
-      }
-
-      return response;
-    }
-
-    @Override
-    protected void postProcessAfterDialogRemoval(final JSONRecipeResponse result) {
-      if (null != result) {
-        processClickFor(result.getRecipe());
-      } else {
-        Toast.makeText(getApplication(), "Sorry, could not obtain results!", Toast.LENGTH_SHORT)
-            .show();
-      }
-    }
-
-  }
 }

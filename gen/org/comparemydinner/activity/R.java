@@ -20,14 +20,15 @@ public final class R {
     }
     public static final class id {
         public static final int button1=0x7f070007;
-        public static final int button2=0x7f070009;
+        public static final int button2=0x7f07000a;
+        public static final int foodImageOne=0x7f070008;
         public static final int foodSearchRowOne=0x7f070006;
-        public static final int foodSearchRowTwo=0x7f070008;
+        public static final int foodSearchRowTwo=0x7f070009;
         public static final int food_description=0x7f070002;
         public static final int food_id=0x7f070000;
         public static final int food_name=0x7f070001;
         public static final int imageView1=0x7f070003;
-        public static final int linearLayout1=0x7f07000a;
+        public static final int linearLayout1=0x7f07000b;
         public static final int tableLayout1=0x7f070005;
         public static final int textView1=0x7f070004;
     }

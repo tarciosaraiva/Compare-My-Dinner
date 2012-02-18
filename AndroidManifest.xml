@@ -40,6 +40,7 @@
                 android:resource="@xml/searchable" >
             </meta-data>
         </activity>
+        <provider android:name=".RecentSearchesProvider" android:authorities="org.comparemydinner.activity.RecentSearchesProvider" />
     </application>
 
 </manifest>

@@ -1,22 +1,14 @@
 package org.comparemydinner.model;
 
-public class Recipe {
+public class Serving {
 
-  private long recipe_id;
+  private long serving_id;
 
-  private String recipe_name;
+  private String serving_description;
 
-  private String recipe_description;
+  private float metric_serving_amount;
 
-  private String recipe_url;
-
-  private float number_of_servings;
-
-  private int rating;
-
-  private RecipeType recipe_types;
-
-  private String recipe_image;
+  private String metric_serving_unit;
 
   private float calories;
 
@@ -52,68 +44,36 @@ public class Recipe {
 
   private int iron;
 
-  public long getRecipe_id() {
-    return recipe_id;
+  public long getServing_id() {
+    return serving_id;
   }
 
-  public void setRecipe_id(long recipe_id) {
-    this.recipe_id = recipe_id;
+  public void setServing_id(long serving_id) {
+    this.serving_id = serving_id;
   }
 
-  public String getRecipe_name() {
-    return recipe_name;
+  public String getServing_description() {
+    return serving_description;
   }
 
-  public void setRecipe_name(String recipe_name) {
-    this.recipe_name = recipe_name;
+  public void setServing_description(String serving_description) {
+    this.serving_description = serving_description;
   }
 
-  public String getRecipe_description() {
-    return recipe_description;
+  public float getMetric_serving_amount() {
+    return metric_serving_amount;
   }
 
-  public void setRecipe_description(String recipe_description) {
-    this.recipe_description = recipe_description;
+  public void setMetric_serving_amount(float metric_serving_amount) {
+    this.metric_serving_amount = metric_serving_amount;
   }
 
-  public String getRecipe_url() {
-    return recipe_url;
+  public String getMetric_serving_unit() {
+    return metric_serving_unit;
   }
 
-  public void setRecipe_url(String recipe_url) {
-    this.recipe_url = recipe_url;
-  }
-
-  public float getNumber_of_servings() {
-    return number_of_servings;
-  }
-
-  public void setNumber_of_servings(float number_of_servings) {
-    this.number_of_servings = number_of_servings;
-  }
-
-  public int getRating() {
-    return rating;
-  }
-
-  public void setRating(int rating) {
-    this.rating = rating;
-  }
-
-  public RecipeType getRecipe_types() {
-    return recipe_types;
-  }
-
-  public void setRecipe_types(RecipeType recipe_types) {
-    this.recipe_types = recipe_types;
-  }
-
-  public String getRecipe_image() {
-    return recipe_image;
-  }
-
-  public void setRecipe_image(String recipe_image) {
-    this.recipe_image = recipe_image;
+  public void setMetric_serving_unit(String metric_serving_unit) {
+    this.metric_serving_unit = metric_serving_unit;
   }
 
   public float getCalories() {
@@ -250,15 +210,6 @@ public class Recipe {
 
   public void setIron(int iron) {
     this.iron = iron;
-  }
-
-  public String[] getColumnValuesForCursor() {
-    return new String[] { String.valueOf(recipe_id), recipe_name, recipe_description };
-  }
-
-  @Override
-  public String toString() {
-    return recipe_name;
   }
 
 }

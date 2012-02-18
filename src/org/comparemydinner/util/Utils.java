@@ -16,7 +16,6 @@ public class Utils {
     final Intent intent = new Intent(context, MainActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     intent.putExtra("recipeId", recipeId);
-
     context.startActivity(intent);
   }
 

@@ -2,25 +2,21 @@ package org.comparemydinner.activity;
 
 import static org.comparemydinner.util.Utils.PROGRESS_DIALOG;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-
+import org.comparemydinner.model.Food;
 import org.comparemydinner.model.JSONRecipeResponse;
-import org.comparemydinner.model.Recipe;
-import org.comparemydinner.service.GetRecipeService;
+import org.comparemydinner.service.GetFoodService;
 import org.comparemydinner.task.BaseAsyncTask;
 import org.comparemydinner.util.Utils;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -29,33 +25,40 @@ public class MainActivity extends Activity implements OnClickListener {
 
   private static final String TAG = "MainActivity";
 
-  private Button foodOne;
+  private Button foodOne, foodTwo, compare;
 
-  private Button foodTwo;
+  private TableRow foodCompareRow;
 
-  private ImageView foodImageOne;
+  private long foodOneId, foodTwoId;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 
-    // TODO fix, this is horrible
-    if (savedInstanceState != null) {
-      if (savedInstanceState.getBundle("recipe") != null) {
-        Toast.makeText(getApplication(), "There's a recipe!", Toast.LENGTH_SHORT).show();
-      }
-    }
-
     Log.d(TAG, "Assigning buttons from XML view");
 
     foodOne = (Button) findViewById(R.id.button1);
-    foodImageOne = (ImageView) findViewById(R.id.foodImageOne);
 
     foodTwo = (Button) findViewById(R.id.button2);
+    compare = (Button) findViewById(R.id.compareBtn);
+    foodCompareRow = (TableRow) findViewById(R.id.foodCompareRow);
 
     foodOne.setOnClickListener(this);
     foodTwo.setOnClickListener(this);
+
+    // implement a different listener for comparison
+    compare.setOnClickListener(new OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        final Intent intent = new Intent(MainActivity.this, CompareActivity.class);
+        intent.putExtra("recipeOne", foodOneId);
+        intent.putExtra("recipeTwo", foodTwoId);
+
+        startActivity(intent);
+      }
+    });
   }
 
   @Override
@@ -93,7 +96,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected JSONRecipeResponse doSearch(final String query) {
       JSONRecipeResponse response = null;
-      final String jsonMsg = new GetRecipeService().execute(query);
+      final String jsonMsg = new GetFoodService().execute(query);
 
       try {
         response = new Gson().fromJson(jsonMsg, JSONRecipeResponse.class);
@@ -107,24 +110,27 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void postProcessAfterDialogRemoval(final JSONRecipeResponse result) {
       if (null != result) {
-        Recipe recipe = result.getRecipe();
+        Food food = result.getRecipe();
 
-        if (recipe.getRecipe_image() != null) {
-          foodOne.setVisibility(View.GONE);
-          foodImageOne.setVisibility(View.VISIBLE);
+        if (food != null) {
 
-          try {
-            URL imageUrl = new URL(recipe.getRecipe_image());
-            InputStream content = (InputStream) imageUrl.getContent();
-            Drawable d = Drawable.createFromStream(content, "src");
-            foodImageOne.setImageDrawable(d);
-          } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
+          if (foodOneId <= 0) {
+            foodOne.setEnabled(Boolean.FALSE);
+            foodOne.setText(food.getFood_name());
+            foodOneId = food.getFood_id();
+
+            getIntent().putExtra("foodone", foodOneId);
+          } else {
+            foodTwo.setEnabled(Boolean.FALSE);
+            foodTwo.setText(food.getFood_name());
+            foodTwoId = food.getFood_id();
+
+            getIntent().getExtras().putLong("foodtwo", foodTwoId);
+
+            foodCompareRow.setVisibility(View.VISIBLE);
           }
-        } else {
-          foodOne.setEnabled(Boolean.FALSE);
-          foodOne.setText(recipe.getRecipe_name());
         }
+
       } else {
         Toast.makeText(getApplication(), "Sorry, could not obtain results!", Toast.LENGTH_SHORT)
             .show();

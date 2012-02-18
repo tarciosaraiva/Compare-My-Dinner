@@ -3,10 +3,10 @@ package org.comparemydinner.activity;
 import static android.content.Intent.ACTION_SEARCH;
 import static org.comparemydinner.util.Utils.PROGRESS_DIALOG;
 
+import org.comparemydinner.model.Food;
+import org.comparemydinner.model.Foods;
 import org.comparemydinner.model.JSONSearchResponse;
-import org.comparemydinner.model.Recipe;
-import org.comparemydinner.model.Recipes;
-import org.comparemydinner.service.SearchRecipeService;
+import org.comparemydinner.service.SearchFoodService;
 import org.comparemydinner.task.BaseAsyncTask;
 import org.comparemydinner.util.Utils;
 
@@ -65,14 +65,14 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
     }
   }
 
-  private void processDisplayFor(final Recipes recipes) {
+  private void processDisplayFor(final Foods foods) {
     String[] columns = { "_id", "name", "descr" };
     int[] viewsToBind = { R.id.food_id, R.id.food_name, R.id.food_description };
 
     MatrixCursor cursor = new MatrixCursor(columns);
 
-    for (Recipe recipe : recipes.getRecipe()) {
-      cursor.addRow(recipe.getColumnValuesForCursor());
+    for (Food food : foods.getFood()) {
+      cursor.addRow(food.getColumnValuesForCursor());
     }
 
     setListAdapter(new SimpleCursorAdapter(this, R.layout.list_item, cursor, columns, viewsToBind));
@@ -99,7 +99,7 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
     @Override
     protected JSONSearchResponse doSearch(final String query) {
       JSONSearchResponse response = null;
-      final String jsonMsg = new SearchRecipeService().execute(query);
+      final String jsonMsg = new SearchFoodService().execute(query);
 
       try {
         response = new Gson().fromJson(jsonMsg, JSONSearchResponse.class);

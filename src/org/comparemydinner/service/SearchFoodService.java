@@ -14,11 +14,11 @@ import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
-public class SearchRecipeService extends BaseFatSecretService {
+public class SearchFoodService extends BaseFatSecretService {
 
   private static final String SEARCH_EXPRESSION = "search_expression=";
 
-  private static final String SEARCH_RECIPE = "recipes.search";
+  private static final String SEARCH_RECIPE = "foods.search";
 
   @Override
   public String buildQueryForMethod(final String criteria, final OAuthConsumer consumer) {

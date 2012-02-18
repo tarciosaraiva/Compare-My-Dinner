@@ -2,14 +2,14 @@ package org.comparemydinner.model;
 
 public class JSONRecipeResponse {
 
-  private Recipe recipe;
+  private Food food;
 
-  public Recipe getRecipe() {
-    return recipe;
+  public Food getRecipe() {
+    return food;
   }
 
-  public void setRecipe(Recipe recipe) {
-    this.recipe = recipe;
+  public void setRecipe(Food food) {
+    this.food = food;
   }
 
 }

@@ -50,11 +50,6 @@
                 android:layout_weight="1"
                 android:text="@string/search_food" />
 
-            <ImageView
-                android:id="@+id/foodImageOne"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
         </TableRow>
 
         <TableRow
@@ -71,6 +66,24 @@
                 android:layout_weight="1"
                 android:text="@string/search_food" />
         </TableRow>
+
+        <TableRow
+            android:id="@+id/foodCompareRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/compareBtn"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="@string/compare" />
+
+        </TableRow>
+
     </TableLayout>
 
 </LinearLayout>

@@ -24,11 +24,11 @@
 
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".SearchActivity" >
+                android:value=".SearchListActivity" >
             </meta-data>
         </activity>
         <activity
-            android:name=".SearchActivity"
+            android:name=".SearchListActivity"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Light.NoTitleBar" android:icon="@drawable/logo">
             <intent-filter>

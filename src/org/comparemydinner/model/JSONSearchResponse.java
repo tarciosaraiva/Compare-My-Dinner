@@ -1,6 +1,6 @@
 package org.comparemydinner.model;
 
-public class JSONResponse {
+public class JSONSearchResponse {
 
   private Recipes recipes;
 

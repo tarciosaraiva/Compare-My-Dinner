@@ -1,18 +1,23 @@
 package org.comparemydinner.util;
 
-import java.io.IOException;
-import java.io.InputStream;
+import org.comparemydinner.activity.MainActivity;
+import org.comparemydinner.model.Recipe;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
 public class Utils {
 
-  public static void closeStreamQuietly(final InputStream inputStream) {
-    try {
-      if (inputStream != null) {
-        inputStream.close();
-      }
-    } catch (final IOException e) {
-      // ignore exception
-    }
-  }
+  public static void goHome(Context context, Recipe recipe) {
+    final Intent intent = new Intent(context, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+    if (recipe != null) {
+      Bundle recipeBundle = new Bundle();
+      intent.putExtra("recipe", recipeBundle);
+    }
+
+    context.startActivity(intent);
+  }
 }

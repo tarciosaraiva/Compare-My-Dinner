@@ -22,8 +22,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -85,7 +87,8 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
 
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    Utils.goHome(SearchListActivity.this, id);
+    Utils.goHome(SearchListActivity.this, id, ((TextView) ((LinearLayout) view).getChildAt(1))
+        .getText().toString());
   }
 
   // class for searching

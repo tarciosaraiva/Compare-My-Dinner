@@ -1,15 +1,12 @@
 package org.comparemydinner.activity;
 
-import static org.comparemydinner.util.Utils.PROGRESS_DIALOG;
-
-import org.comparemydinner.model.Food;
-import org.comparemydinner.model.JSONRecipeResponse;
-import org.comparemydinner.service.GetFoodService;
-import org.comparemydinner.task.BaseAsyncTask;
-import org.comparemydinner.util.Utils;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TableRow;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -36,10 +30,15 @@ public class MainActivity extends Activity implements OnClickListener {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 
+    if (savedInstanceState != null) {
+      foodOneId = savedInstanceState.getLong("foodOneId");
+      foodTwoId = savedInstanceState.getLong("foodTwoId");
+      Log.d(TAG, "RESTORING state - foodone: " + foodOneId + " || foodTwo: " + foodTwoId);
+    }
+
     Log.d(TAG, "Assigning buttons from XML view");
 
     foodOne = (Button) findViewById(R.id.button1);
-
     foodTwo = (Button) findViewById(R.id.button2);
     compare = (Button) findViewById(R.id.compareBtn);
     foodCompareRow = (TableRow) findViewById(R.id.foodCompareRow);
@@ -52,9 +51,17 @@ public class MainActivity extends Activity implements OnClickListener {
 
       @Override
       public void onClick(View v) {
+        try {
+          FileOutputStream fos = openFileOutput("foods_file", Context.MODE_PRIVATE);
+          fos.write("".getBytes());
+          fos.close();
+        } catch (IOException e) {
+          // TODO
+        }
+
         final Intent intent = new Intent(MainActivity.this, CompareActivity.class);
-        intent.putExtra("recipeOne", foodOneId);
-        intent.putExtra("recipeTwo", foodTwoId);
+        intent.putExtra("foodOne", foodOneId);
+        intent.putExtra("foodTwo", foodTwoId);
 
         startActivity(intent);
       }
@@ -63,20 +70,67 @@ public class MainActivity extends Activity implements OnClickListener {
 
   @Override
   protected void onResume() {
-    super.onResume();
+    final long intentFoodId = getIntent().getLongExtra("recipeId", -1);
+    final String intentFoodName = getIntent().getStringExtra("recipeName");
 
-    long recipeId = getIntent().getLongExtra("recipeId", -1);
+    Log.d(TAG, "Recipe ID: " + intentFoodId);
+    Log.d(TAG, "Recipe Name: " + intentFoodName);
 
-    Log.d(TAG, "Recipe ID: " + recipeId);
+    if (intentFoodId > -1) {
+      // new GetRecipeProgressTask(this,
+      // PROGRESS_DIALOG).execute(String.valueOf(recipeId));
+      try {
 
-    if (recipeId > -1) {
-      new GetRecipeProgressTask(this, PROGRESS_DIALOG).execute(String.valueOf(recipeId));
+        FileOutputStream fos = openFileOutput("foods_file", Context.MODE_APPEND);
+        fos.write(String.valueOf(intentFoodId).getBytes());
+        fos.write(String.valueOf("-").getBytes());
+        fos.write(String.valueOf(intentFoodName).getBytes());
+        fos.write(String.valueOf("#").getBytes());
+        fos.close();
+
+        FileInputStream fis = openFileInput("foods_file");
+
+        StringBuffer strContent = new StringBuffer("");
+        int ch;
+
+        while ((ch = fis.read()) != -1) {
+          strContent.append((char) ch);
+        }
+
+        fis.close();
+
+        StringTokenizer strToken = new StringTokenizer(strContent.toString(), "#");
+        int count = 0;
+
+        while (strToken.hasMoreTokens()) {
+          String str = strToken.nextToken();
+
+          String foodId = str.substring(0, str.indexOf("-"));
+          String foodName = str.substring(str.indexOf("-") + 1);
+
+          if (count == 0) {
+            foodOne.setEnabled(Boolean.FALSE);
+            foodOne.setText(foodName);
+            foodOneId = Long.valueOf(foodId);
+          } else {
+            foodTwo.setEnabled(Boolean.FALSE);
+            foodTwo.setText(foodName);
+            foodTwoId = Long.valueOf(foodId);
+
+            foodCompareRow.setVisibility(View.VISIBLE);
+          }
+
+          count++;
+
+        }
+
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     }
-  }
 
-  @Override
-  protected Dialog onCreateDialog(final int id) {
-    return Utils.getProgressDialog(id, MainActivity.this);
+    super.onResume();
   }
 
   @Override
@@ -84,59 +138,6 @@ public class MainActivity extends Activity implements OnClickListener {
     Log.d(TAG, "Requesting search activity");
 
     onSearchRequested();
-  }
-
-  // sub class to get the recipe
-  class GetRecipeProgressTask extends BaseAsyncTask<JSONRecipeResponse> {
-
-    public GetRecipeProgressTask(Activity activity, int dialogId) {
-      super(activity, dialogId);
-    }
-
-    @Override
-    protected JSONRecipeResponse doSearch(final String query) {
-      JSONRecipeResponse response = null;
-      final String jsonMsg = new GetFoodService().execute(query);
-
-      try {
-        response = new Gson().fromJson(jsonMsg, JSONRecipeResponse.class);
-      } catch (Exception e) {
-        Log.e(TAG, e.getMessage());
-      }
-
-      return response;
-    }
-
-    @Override
-    protected void postProcessAfterDialogRemoval(final JSONRecipeResponse result) {
-      if (null != result) {
-        Food food = result.getRecipe();
-
-        if (food != null) {
-
-          if (foodOneId <= 0) {
-            foodOne.setEnabled(Boolean.FALSE);
-            foodOne.setText(food.getFood_name());
-            foodOneId = food.getFood_id();
-
-            getIntent().putExtra("foodone", foodOneId);
-          } else {
-            foodTwo.setEnabled(Boolean.FALSE);
-            foodTwo.setText(food.getFood_name());
-            foodTwoId = food.getFood_id();
-
-            getIntent().getExtras().putLong("foodtwo", foodTwoId);
-
-            foodCompareRow.setVisibility(View.VISIBLE);
-          }
-        }
-
-      } else {
-        Toast.makeText(getApplication(), "Sorry, could not obtain results!", Toast.LENGTH_SHORT)
-            .show();
-      }
-    }
-
   }
 
 }

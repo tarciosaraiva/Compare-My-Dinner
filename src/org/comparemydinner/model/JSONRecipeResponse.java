@@ -4,11 +4,11 @@ public class JSONRecipeResponse {
 
   private Food food;
 
-  public Food getRecipe() {
+  public Food getFood() {
     return food;
   }
 
-  public void setRecipe(Food food) {
+  public void setFood(Food food) {
     this.food = food;
   }
 

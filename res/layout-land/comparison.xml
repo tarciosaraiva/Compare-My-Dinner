@@ -22,13 +22,10 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <ScrollView
-            android:id="@+id/scroll1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ScrollView android:id="@+id/scroll1"
             android:layout_weight="0.2"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
@@ -38,46 +35,51 @@
 
                 <TextView
                     android:id="@+id/food1"
-                    style="@style/food_name" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/lbl_padding"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/serving_descr1"
-                    style="@style/food_serving" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/lbl_padding"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/cals1"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/fat1"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/carbs1"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/prot1"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/chol1"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
         </ScrollView>
 
-        <ScrollView
-            android:id="@+id/scroll2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ScrollView android:id="@+id/scroll2"
             android:layout_weight="0.2"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -87,35 +89,43 @@
 
                 <TextView
                     android:id="@+id/food2"
-                    style="@style/food_name" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/lbl_padding"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
                     android:id="@+id/serving_descr2"
-                    style="@style/food_serving" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/lbl_padding"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/cals2"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/fat2"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/carbs2"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/prot2"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/chol2"
-                    style="@style/nutrientInfo"
+                    style="@style/nutrientInfoL"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
         </ScrollView>

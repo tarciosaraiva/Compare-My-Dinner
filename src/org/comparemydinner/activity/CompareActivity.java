@@ -94,7 +94,7 @@ public class CompareActivity extends Activity {
     String measuringUnit = serving.getMetric_serving_unit();
 
     if (food.getFood_id() == foodOne) {
-      calsOne.setText(CALS + "\n" + String.valueOf(calories) + " " + measuringUnit);
+      calsOne.setText(CALS + "\n" + String.valueOf(calories) + " kcal");
       carbsOne.setText(CARBS + "\n" + String.valueOf(carbs) + " " + measuringUnit);
       fatOne.setText(FAT + "\n" + String.valueOf(fat) + " " + measuringUnit);
       cholOne.setText(CHOL + "\n" + String.valueOf(cholesterol) + " " + measuringUnit);
@@ -103,7 +103,7 @@ public class CompareActivity extends Activity {
       foodNameOne.setText(food.getFood_name());
       servingSizeOne.setText(serving.getServing_description());
     } else {
-      calsTwo.setText(CALS + "\n" + String.valueOf(calories) + " " + measuringUnit);
+      calsTwo.setText(CALS + "\n" + String.valueOf(calories) + " kcal");
       carbsTwo.setText(CARBS + "\n" + String.valueOf(carbs) + " " + measuringUnit);
       fatTwo.setText(FAT + "\n" + String.valueOf(fat) + " " + measuringUnit);
       cholTwo.setText(CHOL + "\n" + String.valueOf(cholesterol) + " " + measuringUnit);

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:key="show_cals"
+        android:title="@string/show_cals"
+        android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="show_carbs"
+        android:title="@string/show_carbs"
+        android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="show_protein"
+        android:title="@string/show_protein"
+        android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="show_fat"
+        android:title="@string/show_fat"
+        android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="show_sat_fat"
+        android:title="@string/show_sat_fat" />
+    <CheckBoxPreference
+        android:key="show_trans_fat"
+        android:title="@string/show_trans_fat" />
+    <CheckBoxPreference
+        android:key="show_chol"
+        android:title="@string/show_chol"
+        android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="show_sodium"
+        android:title="@string/show_sodium" />
+    <CheckBoxPreference
+        android:key="show_potassium"
+        android:title="@string/show_potassium" />
+    <CheckBoxPreference
+        android:key="show_fibre"
+        android:title="@string/show_fibre" />
+    <CheckBoxPreference
+        android:key="show_sugar"
+        android:title="@string/show_sugar" />
+    <CheckBoxPreference
+        android:key="show_calcium"
+        android:title="@string/show_calcium" />
+    <CheckBoxPreference
+        android:key="show_iron"
+        android:title="@string/show_iron" />
+
+</PreferenceScreen>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape>
+            <gradient android:angle="270" android:endColor="@color/white" android:startColor="@color/wax" />
+            <stroke android:width="2dp" android:color="@color/green_3" />
+            <corners android:radius="10dp" />
+            <padding android:bottom="20dp" android:left="10dp" android:right="10dp" android:top="20dp" />
+        </shape>
+    </item>
+
+    <item android:state_focused="true">
+        <shape>
+            <gradient android:angle="270" android:endColor="@color/wax" android:startColor="@color/white" />
+            <stroke android:width="2dp" android:color="@color/green_3" />
+            <corners android:radius="10dp" />
+            <padding android:left="10dp" android:top="20dp" android:right="10dp" android:bottom="20dp" />
+        </shape>
+    </item>
+
+    <item android:state_enabled="false">
+        <shape>
+            <gradient android:angle="270" android:endColor="@color/gray" android:startColor="@color/white" />
+            <stroke android:width="2dp" android:color="@color/gray" />
+            <corners android:radius="10dp" />
+            <padding android:left="10dp" android:top="20dp" android:right="10dp" android:bottom="20dp" />
+        </shape>
+    </item>
+
+    <item>
+      <shape>
+          <gradient android:angle="270" android:endColor="@color/wax" android:startColor="@color/white" />
+          <stroke android:width="2dp" android:color="@color/green_3" />
+          <corners android:radius="10dp" />
+          <padding android:bottom="20dp" android:left="10dp" android:right="10dp" android:top="20dp" />
+      </shape>
+    </item>
+</selector>

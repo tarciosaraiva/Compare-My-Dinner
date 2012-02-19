@@ -11,36 +11,37 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int aqua=0x7f05000c;
-        public static final int background1=0x7f050006;
-        public static final int background2=0x7f050007;
-        public static final int background3=0x7f050008;
-        public static final int black=0x7f05000a;
-        public static final int blue=0x7f05000f;
-        public static final int foreground1=0x7f050004;
-        public static final int foreground2=0x7f050005;
-        public static final int gray=0x7f05000b;
-        public static final int red=0x7f05000d;
-        public static final int title_background=0x7f050000;
-        public static final int title_separator=0x7f050003;
-        public static final int title_text=0x7f050001;
-        public static final int title_text_alt=0x7f050002;
-        public static final int white=0x7f050009;
-        public static final int yellow=0x7f05000e;
+        public static final int aqua=0x7f050003;
+        public static final int black=0x7f050001;
+        public static final int blue=0x7f050006;
+        public static final int button=0x7f050007;
+        public static final int dark_blue=0x7f05000b;
+        public static final int gray=0x7f050002;
+        public static final int green_3=0x7f050009;
+        public static final int olive=0x7f050008;
+        public static final int red=0x7f050004;
+        public static final int wax=0x7f05000a;
+        public static final int white=0x7f050000;
+        public static final int yellow=0x7f050005;
     }
     public static final class dimen {
         public static final int lbl_padding=0x7f060001;
         public static final int list_padding=0x7f060002;
+        public static final int sublist_padding=0x7f060003;
         public static final int tbl_padding=0x7f060000;
-        public static final int text_size_large=0x7f060008;
-        public static final int text_size_medium=0x7f060007;
-        public static final int text_size_small=0x7f060006;
-        public static final int text_size_tiny=0x7f060005;
-        public static final int title_height=0x7f060003;
-        public static final int welcome_message_height=0x7f060004;
+        public static final int text_size_large=0x7f060009;
+        public static final int text_size_medium=0x7f060008;
+        public static final int text_size_small=0x7f060007;
+        public static final int text_size_tiny=0x7f060006;
+        public static final int title_height=0x7f060004;
+        public static final int welcome_message_height=0x7f060005;
     }
     public static final class drawable {
-        public static final int logo=0x7f020000;
+        public static final int compare_button=0x7f020000;
+        public static final int header_bg=0x7f020001;
+        public static final int logo=0x7f020002;
+        public static final int search_button=0x7f020003;
+        public static final int text_lines=0x7f020004;
     }
     public static final class id {
         public static final int about_msg=0x7f090014;
@@ -83,8 +84,9 @@ public final class R {
         public static final int search=0x7f030004;
     }
     public static final class string {
-        public static final int about_msg=0x7f07000e;
+        public static final int about_msg=0x7f07001c;
         public static final int app_name=0x7f070000;
+        public static final int app_name_settings=0x7f07001d;
         public static final int cals=0x7f070005;
         public static final int carbs=0x7f070006;
         public static final int chol=0x7f070009;
@@ -93,24 +95,48 @@ public final class R {
         public static final int menu_about=0x7f07000b;
         public static final int menu_new_comparison=0x7f07000d;
         public static final int menu_settings=0x7f07000c;
+        public static final int pref_display_summary=0x7f07001b;
         public static final int prot=0x7f070008;
         public static final int search_food=0x7f070001;
         public static final int search_hint=0x7f070004;
+        public static final int show_calcium=0x7f070019;
+        public static final int show_cals=0x7f07000e;
+        public static final int show_carbs=0x7f07000f;
+        public static final int show_chol=0x7f070014;
+        public static final int show_fat=0x7f070011;
+        public static final int show_fibre=0x7f070017;
+        public static final int show_iron=0x7f07001a;
+        public static final int show_potassium=0x7f070016;
+        public static final int show_protein=0x7f070010;
+        public static final int show_sat_fat=0x7f070012;
+        public static final int show_sodium=0x7f070015;
+        public static final int show_sugar=0x7f070018;
+        public static final int show_trans_fat=0x7f070013;
         public static final int what_have_been_eating=0x7f070003;
         public static final int where_eating=0x7f070002;
     }
     public static final class style {
-        public static final int DialogTextMedium=0x7f080003;
-        public static final int DialogTextSmall=0x7f080004;
-        /**  Base application theme is the default theme. 
+        public static final int DialogTextMedium=0x7f08000a;
+        public static final int DialogTextSmall=0x7f08000b;
+        public static final int compare_button=0x7f080004;
+        public static final int food_descr=0x7f080006;
+        /**  Text styles 
          */
-        public static final int Theme=0x7f080000;
-        /**  Variation on the Light theme that turns off the title 
+        public static final int food_name=0x7f080005;
+        public static final int food_serving=0x7f080007;
+        /**  Header Styles 
          */
-        public static final int Theme_TramHunterStyle=0x7f080001;
-        public static final int nutrientInfo=0x7f080002;
+        public static final int header=0x7f080000;
+        public static final int header_logo=0x7f080001;
+        public static final int header_name=0x7f080002;
+        public static final int nutrientInfo=0x7f080008;
+        public static final int nutrientInfoL=0x7f080009;
+        /**  Home screen buttons 
+         */
+        public static final int search_button=0x7f080003;
     }
     public static final class xml {
-        public static final int searchable=0x7f040000;
+        public static final int prefs=0x7f040000;
+        public static final int searchable=0x7f040001;
     }
 }

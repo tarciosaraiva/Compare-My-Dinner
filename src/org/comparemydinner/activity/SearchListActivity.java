@@ -115,11 +115,12 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
 
     @Override
     protected void postProcessAfterDialogRemoval(final JSONSearchResponse result) {
-      if (null != result) {
-        processDisplayFor(result.getRecipes());
+      if (null != result && result.getFoods().getTotal_results() > 0) {
+        processDisplayFor(result.getFoods());
       } else {
         Toast.makeText(getApplication(), "Sorry, could not obtain results!", Toast.LENGTH_SHORT)
             .show();
+        Utils.goHome(SearchListActivity.this, -1, null);
       }
     }
 

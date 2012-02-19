@@ -1,5 +1,7 @@
 package org.comparemydinner.service;
 
+import java.net.URLEncoder;
+
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.signature.QueryStringSigningStrategy;
@@ -52,7 +54,7 @@ public abstract class BaseFatSecretService {
     sb.append(getMethod());
     sb.append(AMPERSAND);
     sb.append(getFilterParameter());
-    sb.append(query);
+    sb.append(URLEncoder.encode(query));
 
     return sb.toString();
   }

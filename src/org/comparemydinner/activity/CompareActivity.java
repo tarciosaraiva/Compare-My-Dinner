@@ -1,12 +1,16 @@
 package org.comparemydinner.activity;
 
+import static org.comparemydinner.util.Utils.MENU_FEEDBACK;
+import static org.comparemydinner.util.Utils.MENU_NEW_COMPARISON;
 import static org.comparemydinner.util.Utils.PROGRESS_DIALOG;
 
+import org.comparemydinner.R;
 import org.comparemydinner.model.Food;
 import org.comparemydinner.model.JSONRecipeResponse;
 import org.comparemydinner.model.Serving;
 import org.comparemydinner.service.GetFoodService;
 import org.comparemydinner.task.BaseAsyncTask;
+import org.comparemydinner.util.PreferenceHelper;
 import org.comparemydinner.util.Utils;
 
 import android.app.Activity;
@@ -15,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,46 +39,40 @@ public class CompareActivity extends Activity {
 
   private static final String PROT = "Protein";
 
-  private static final int MENU_NEW = 0;
+  private static final String CALCIUM = "Calcium";
+
+  private static final String FIBRE = "Fibre";
+
+  private static final String SAT_FAT = "Sat. Fat";
+
+  private static final String TRANS_FAT = "Trans Fat";
+
+  private static final String SODIUM = "Sodium";
+
+  private static final String POTASSIUM = "Potassium";
+
+  private static final String SUGAR = "Sugar";
+
+  private static final String IRON = "Iron";
 
   private long foodOne, foodTwo;
 
-  private TextView calsOne, calsTwo;
+  private PreferenceHelper prefHelper;
 
-  private TextView carbsOne, carbsTwo;
+  private LinearLayout leftColumn;
 
-  private TextView fatOne, fatTwo;
-
-  private TextView cholOne, cholTwo;
-
-  private TextView protOne, protTwo;
-
-  private TextView servingSizeOne, servingSizeTwo;
-
-  private TextView foodNameOne, foodNameTwo;
+  private LinearLayout rightColumn;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.comparison);
 
+    prefHelper = new PreferenceHelper();
+
     // populate the elements
-    calsOne = (TextView) findViewById(R.id.cals1);
-    calsTwo = (TextView) findViewById(R.id.cals2);
-    carbsOne = (TextView) findViewById(R.id.carbs1);
-    carbsTwo = (TextView) findViewById(R.id.carbs2);
-    fatOne = (TextView) findViewById(R.id.fat1);
-    fatTwo = (TextView) findViewById(R.id.fat2);
-    cholOne = (TextView) findViewById(R.id.chol1);
-    cholTwo = (TextView) findViewById(R.id.chol2);
-    protOne = (TextView) findViewById(R.id.prot1);
-    protTwo = (TextView) findViewById(R.id.prot2);
-
-    servingSizeOne = (TextView) findViewById(R.id.serving_descr1);
-    servingSizeTwo = (TextView) findViewById(R.id.serving_descr2);
-
-    foodNameOne = (TextView) findViewById(R.id.food1);
-    foodNameTwo = (TextView) findViewById(R.id.food2);
+    leftColumn = (LinearLayout) findViewById(R.id.leftColumn);
+    rightColumn = (LinearLayout) findViewById(R.id.rightColumn);
 
     foodOne = getIntent().getLongExtra("foodOne", -1);
     foodTwo = getIntent().getLongExtra("foodTwo", -1);
@@ -83,40 +82,99 @@ public class CompareActivity extends Activity {
   }
 
   private void processFood(final Food food) {
-    Serving serving = food.getServings().getServing()[0];
-
-    float calories = serving.getCalories();
-    float carbs = serving.getCarbohydrate();
-    float fat = serving.getFat();
-    float cholesterol = serving.getCholesterol();
-    float protein = serving.getProtein();
+    Serving serving = food.getServings().getServingList().get(0);
 
     String measuringUnit = serving.getMetric_serving_unit();
+    boolean addTofirstColumn = true;
 
-    if (food.getFood_id() == foodOne) {
-      calsOne.setText(CALS + "\n" + String.valueOf(calories) + " kcal");
-      carbsOne.setText(CARBS + "\n" + String.valueOf(carbs) + " " + measuringUnit);
-      fatOne.setText(FAT + "\n" + String.valueOf(fat) + " " + measuringUnit);
-      cholOne.setText(CHOL + "\n" + String.valueOf(cholesterol) + " " + measuringUnit);
-      protOne.setText(PROT + "\n" + String.valueOf(protein) + " " + measuringUnit);
+    if (food.getFood_id() != foodOne) {
+      addTofirstColumn = false;
+    }
 
-      foodNameOne.setText(food.getFood_name());
-      servingSizeOne.setText(serving.getServing_description());
+    createTextView(food.getFood_name(), R.layout.food_name_view, addTofirstColumn);
+    createTextView(serving.getServing_description(), R.layout.food_serving_view, addTofirstColumn);
+
+    if (prefHelper.canShowCalories()) {
+      createTextView(CALS + "\n" + String.valueOf(serving.getCalories()) + " kcal",
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowCarbs()) {
+      createTextView(
+          CARBS + "\n" + String.valueOf(serving.getCarbohydrate()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowFat()) {
+      createTextView(FAT + "\n" + String.valueOf(serving.getFat()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowSaturatedFat()) {
+      createTextView(SAT_FAT + "\n" + String.valueOf(serving.getSaturated_fat()) + " "
+          + measuringUnit, R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowTransFat()) {
+      createTextView(TRANS_FAT + "\n" + String.valueOf(serving.getTrans_fat()) + " "
+          + measuringUnit, R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowCholesterol()) {
+      createTextView(CHOL + "\n" + String.valueOf(serving.getCholesterol()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowProtein()) {
+      createTextView(PROT + "\n" + String.valueOf(serving.getProtein()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowCalcium()) {
+      createTextView(CALCIUM + "\n" + String.valueOf(serving.getCalcium()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowFibre()) {
+      createTextView(FIBRE + "\n" + String.valueOf(serving.getFiber()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowIron()) {
+      createTextView(IRON + "\n" + String.valueOf(serving.getIron()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowPotassium()) {
+      createTextView(POTASSIUM + "\n" + String.valueOf(serving.getPotassium()) + " "
+          + measuringUnit, R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowSodium()) {
+      createTextView(SODIUM + "\n" + String.valueOf(serving.getSodium()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+
+    if (prefHelper.canShowSugar()) {
+      createTextView(SUGAR + "\n" + String.valueOf(serving.getSugar()) + " " + measuringUnit,
+          R.layout.nutrient_info_view, addTofirstColumn);
+    }
+  }
+
+  private void createTextView(String text, int viewToInflate, boolean addTofirstColumn) {
+    TextView textView = (TextView) getLayoutInflater().inflate(viewToInflate, null);
+    textView.setText(text);
+
+    if (addTofirstColumn) {
+      leftColumn.addView(textView);
     } else {
-      calsTwo.setText(CALS + "\n" + String.valueOf(calories) + " kcal");
-      carbsTwo.setText(CARBS + "\n" + String.valueOf(carbs) + " " + measuringUnit);
-      fatTwo.setText(FAT + "\n" + String.valueOf(fat) + " " + measuringUnit);
-      cholTwo.setText(CHOL + "\n" + String.valueOf(cholesterol) + " " + measuringUnit);
-      protTwo.setText(PROT + "\n" + String.valueOf(protein) + " " + measuringUnit);
-
-      foodNameTwo.setText(food.getFood_name());
-      servingSizeTwo.setText(serving.getServing_description());
+      rightColumn.addView(textView);
     }
   }
 
   @Override
   protected Dialog onCreateDialog(final int id) {
-    return Utils.getProgressDialog(id, CompareActivity.this);
+    return Utils.getProgressDialog(id, "Fetching food data", CompareActivity.this);
   }
 
   // sub class to get the recipe
@@ -129,13 +187,20 @@ public class CompareActivity extends Activity {
     @Override
     protected JSONRecipeResponse doSearch(final String query) {
       JSONRecipeResponse response = null;
-      final String jsonMsg = new GetFoodService().execute(query);
+
+      Log.d(TAG, Utils.buildStr("Getting food id [", query, "]"));
+
+      String jsonMsg = new GetFoodService().execute(query);
 
       try {
+        if (jsonMsg.indexOf("[") < 0) {
+          jsonMsg = jsonMsg.replace("\"serving\":", "\"serving\": [");
+          jsonMsg = jsonMsg.replace("} } }}", "}] } }}");
+        }
         response = new Gson().fromJson(jsonMsg, JSONRecipeResponse.class);
-
       } catch (Exception e) {
         Log.e(TAG, e.getMessage());
+        response = new JSONRecipeResponse();
       }
 
       return response;
@@ -143,7 +208,7 @@ public class CompareActivity extends Activity {
 
     @Override
     protected void postProcessAfterDialogRemoval(final JSONRecipeResponse result) {
-      if (null != result) {
+      if (null != result.getFood()) {
         processFood(result.getFood());
       } else {
         Toast.makeText(getApplication(), "Sorry, could not obtain results!", Toast.LENGTH_SHORT)
@@ -156,8 +221,9 @@ public class CompareActivity extends Activity {
   public boolean onCreateOptionsMenu(Menu menu) {
     super.onCreateOptionsMenu(menu);
 
-    menu.add(0, MENU_NEW, 0, R.string.menu_new_comparison).setIcon(
-        android.R.drawable.ic_menu_search);
+    menu.add(0, MENU_NEW_COMPARISON, 0, R.string.menu_new_comparison).setIcon(
+        android.R.drawable.ic_menu_rotate);
+    menu.add(0, MENU_FEEDBACK, 0, R.string.menu_feedback).setIcon(android.R.drawable.ic_menu_send);
 
     return true;
   }
@@ -165,8 +231,11 @@ public class CompareActivity extends Activity {
   @Override
   public boolean onOptionsItemSelected(final MenuItem item) {
     switch (item.getItemId()) {
-      case MENU_NEW:
+      case MENU_NEW_COMPARISON:
         Utils.goHome(getApplicationContext(), -1, null);
+        return true;
+      case MENU_FEEDBACK:
+        Utils.invokeEmail(this);
         return true;
     }
 

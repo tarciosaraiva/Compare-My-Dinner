@@ -5,6 +5,7 @@
     android:orientation="vertical" >
 
     <LinearLayout style="@style/header" >
+
         <ImageView
             android:id="@+id/imageView1"
             style="@style/header_logo" />
@@ -29,31 +30,30 @@
             android:layout_weight="1"
             android:baselineAligned="false" >
 
-            <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="fill_vertical"
-                android:layout_weight="1" >
+            <Button
+                android:id="@+id/button1"
+                style="@style/search_button"
+                android:layout_weight="1"
+                android:text="@string/search_food" />
 
-                <Button
-                    android:id="@+id/button1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/search_food" />
+            <Button
+                android:id="@+id/button2"
+                style="@style/search_button"
+                android:layout_weight="1"
+                android:text="@string/search_food" />
+        </TableRow>
 
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/search_food" />
+        <TableRow
+            android:id="@+id/foodCompareRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" >
 
-            </LinearLayout>
-
+            <Button
+                android:id="@+id/compareBtn"
+                style="@style/compare_button"
+                android:text="@string/compare" />
         </TableRow>
     </TableLayout>
 

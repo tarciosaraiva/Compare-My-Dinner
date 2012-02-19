@@ -1,11 +1,15 @@
 package org.comparemydinner.activity;
 
+import static org.comparemydinner.util.Utils.MENU_ABOUT;
+import static org.comparemydinner.util.Utils.MENU_FEEDBACK;
+import static org.comparemydinner.util.Utils.MENU_SETTINGS;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-import org.comparemydinner.util.PreferenceHelper;
+import org.comparemydinner.R;
 import org.comparemydinner.util.Utils;
 
 import android.app.Activity;
@@ -24,17 +28,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
   private static final String TAG = "MainActivity";
 
-  private static final int MENU_ABOUT = 0;
-
-  private static final int MENU_SETTINGS = 1;
-
   private Button foodOne, foodTwo, compare;
 
   private TableRow foodCompareRow;
 
   private long foodOneId, foodTwoId;
-
-  private PreferenceHelper mPreferenceHelper;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
@@ -149,8 +147,9 @@ public class MainActivity extends Activity implements OnClickListener {
     super.onCreateOptionsMenu(menu);
 
     menu.add(0, MENU_ABOUT, 0, R.string.menu_about).setIcon(android.R.drawable.ic_menu_help);
-    menu.add(0, MENU_SETTINGS, 0, R.string.menu_settings).setIcon(
+    menu.add(0, MENU_SETTINGS, 0, R.string.menu_preferences).setIcon(
         android.R.drawable.ic_menu_preferences);
+    menu.add(0, MENU_FEEDBACK, 0, R.string.menu_feedback).setIcon(android.R.drawable.ic_menu_send);
 
     return true;
   }
@@ -159,12 +158,16 @@ public class MainActivity extends Activity implements OnClickListener {
   public boolean onOptionsItemSelected(final MenuItem item) {
     switch (item.getItemId()) {
       case MENU_ABOUT:
-        Utils.showAbout(this, mPreferenceHelper);
+        Utils.showAbout(this);
         return true;
       case MENU_SETTINGS:
-        startActivity(new Intent(this, SettingsActivity.class));
+        startActivity(new Intent(this, PreferencesActivity.class));
+        return true;
+      case MENU_FEEDBACK:
+        Utils.invokeEmail(this);
         return true;
     }
+
     return false;
 
   }

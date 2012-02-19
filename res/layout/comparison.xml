@@ -31,43 +31,11 @@
             android:layout_marginRight="5sp">
 
             <LinearLayout
-                android:id="@+id/linearLayout1"
+                android:id="@+id/leftColumn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/food1"
-                    style="@style/food_name" />
-
-                <TextView
-                    android:id="@+id/serving_descr1"
-                    style="@style/food_serving" />
-
-                <TextView
-                    android:id="@+id/cals1"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/fat1"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/carbs1"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/prot1"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/chol1"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
         </ScrollView>
 
@@ -80,43 +48,12 @@
             android:layout_marginRight="5sp">
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/rightColumn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/food2"
-                    style="@style/food_name" />
 
-                <TextView
-                    android:id="@+id/serving_descr2"
-                    style="@style/food_serving" />
-
-                <TextView
-                    android:id="@+id/cals2"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/fat2"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/carbs2"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/prot2"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/chol2"
-                    style="@style/nutrientInfo"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

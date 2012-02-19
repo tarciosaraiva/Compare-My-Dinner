@@ -9,7 +9,7 @@ public abstract class BaseAsyncTask<Result> extends AsyncTask<String, Void, Resu
 
   private int dialogId;
 
-  public BaseAsyncTask(Activity activity, int dialogId) {
+  public BaseAsyncTask(final Activity activity, final int dialogId) {
     this.activity = activity;
     this.dialogId = dialogId;
   }

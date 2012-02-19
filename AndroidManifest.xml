@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.comparemydinner.activity"
+    package="org.comparemydinner"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="10" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:name=".CompareMyDinnerApplication" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".SearchListActivity" >
+                android:value=".activity.SearchListActivity" >
             </meta-data>
         </activity>
         <activity
-            android:name=".CompareActivity"
+            android:name=".activity.CompareActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activity.PreferencesActivity"
             android:theme="@android:style/Theme.Light"
             android:label="@string/app_name_settings" >
         </activity>
         <activity
-            android:name=".SearchListActivity"
+            android:name=".activity.SearchListActivity"
             android:launchMode="singleTop"
             android:icon="@drawable/logo">
             <intent-filter>
@@ -49,8 +47,12 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" >
             </meta-data>
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".activity.SearchListActivity" >
+            </meta-data>
         </activity>
-        <provider android:name=".RecentSearchesProvider" android:authorities="org.comparemydinner.activity.RecentSearchesProvider" />
+        <provider android:name=".RecentSearchesProvider" android:authorities="org.comparemydinner.RecentSearchesProvider" />
     </application>
 
 </manifest>

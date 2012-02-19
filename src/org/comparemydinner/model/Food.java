@@ -10,7 +10,7 @@ public class Food {
 
   private String food_url;
 
-  private Servings servings;
+  private MultipleServings servings;
 
   public long getFood_id() {
     return food_id;
@@ -36,11 +36,11 @@ public class Food {
     this.food_description = food_description;
   }
 
-  public Servings getServings() {
+  public MultipleServings getServings() {
     return servings;
   }
 
-  public void setServings(Servings servings) {
+  public void setServings(MultipleServings servings) {
     this.servings = servings;
   }
 

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package org.comparemydinner.activity;
+package org.comparemydinner;
 
 public final class R {
     public static final class attr {
@@ -44,74 +44,65 @@ public final class R {
         public static final int text_lines=0x7f020004;
     }
     public static final class id {
-        public static final int about_msg=0x7f090014;
-        public static final int button1=0x7f09001a;
-        public static final int button2=0x7f09001c;
-        public static final int cals1=0x7f090006;
-        public static final int cals2=0x7f09000f;
-        public static final int carbs1=0x7f090008;
-        public static final int carbs2=0x7f090011;
-        public static final int chol1=0x7f09000a;
-        public static final int chol2=0x7f090013;
-        public static final int compareBtn=0x7f09001e;
-        public static final int fat1=0x7f090007;
-        public static final int fat2=0x7f090010;
-        public static final int food1=0x7f090004;
-        public static final int food2=0x7f09000d;
-        public static final int foodCompareRow=0x7f09001d;
-        public static final int foodSearchRowOne=0x7f090019;
-        public static final int foodSearchRowTwo=0x7f09001b;
-        public static final int food_description=0x7f090017;
-        public static final int food_id=0x7f090015;
-        public static final int food_name=0x7f090016;
+        public static final int about_msg=0x7f090006;
+        public static final int button1=0x7f09000c;
+        public static final int button2=0x7f09000e;
+        public static final int compareBtn=0x7f090010;
+        public static final int foodCompareRow=0x7f09000f;
+        public static final int foodSearchRowOne=0x7f09000b;
+        public static final int foodSearchRowTwo=0x7f09000d;
+        public static final int food_description=0x7f090009;
+        public static final int food_id=0x7f090007;
+        public static final int food_name=0x7f090008;
         public static final int imageView1=0x7f090000;
-        public static final int linearLayout1=0x7f090003;
-        public static final int linearLayout2=0x7f09000c;
-        public static final int prot1=0x7f090009;
-        public static final int prot2=0x7f090012;
+        public static final int leftColumn=0x7f090003;
+        public static final int rightColumn=0x7f090005;
         public static final int scroll1=0x7f090002;
-        public static final int scroll2=0x7f09000b;
-        public static final int serving_descr1=0x7f090005;
-        public static final int serving_descr2=0x7f09000e;
-        public static final int tableLayout1=0x7f090018;
+        public static final int scroll2=0x7f090004;
+        public static final int tableLayout1=0x7f09000a;
         public static final int textView1=0x7f090001;
     }
     public static final class layout {
         public static final int comparison=0x7f030000;
         public static final int dialog_about=0x7f030001;
-        public static final int list_item=0x7f030002;
-        public static final int main=0x7f030003;
-        public static final int search=0x7f030004;
+        public static final int food_name_view=0x7f030002;
+        public static final int food_serving_view=0x7f030003;
+        public static final int list_item=0x7f030004;
+        public static final int main=0x7f030005;
+        public static final int nutrient_info_view=0x7f030006;
+        public static final int search=0x7f030007;
     }
     public static final class string {
-        public static final int about_msg=0x7f07001c;
+        public static final int about_msg=0x7f07001e;
         public static final int app_name=0x7f070000;
-        public static final int app_name_settings=0x7f07001d;
+        public static final int app_name_settings=0x7f07001f;
         public static final int cals=0x7f070005;
         public static final int carbs=0x7f070006;
         public static final int chol=0x7f070009;
         public static final int compare=0x7f07000a;
         public static final int fat=0x7f070007;
         public static final int menu_about=0x7f07000b;
-        public static final int menu_new_comparison=0x7f07000d;
-        public static final int menu_settings=0x7f07000c;
-        public static final int pref_display_summary=0x7f07001b;
+        public static final int menu_feedback=0x7f07000f;
+        public static final int menu_new_comparison=0x7f07000e;
+        public static final int menu_new_search=0x7f07000d;
+        public static final int menu_preferences=0x7f07000c;
+        public static final int pref_display_summary=0x7f07001d;
         public static final int prot=0x7f070008;
         public static final int search_food=0x7f070001;
         public static final int search_hint=0x7f070004;
-        public static final int show_calcium=0x7f070019;
-        public static final int show_cals=0x7f07000e;
-        public static final int show_carbs=0x7f07000f;
-        public static final int show_chol=0x7f070014;
-        public static final int show_fat=0x7f070011;
-        public static final int show_fibre=0x7f070017;
-        public static final int show_iron=0x7f07001a;
-        public static final int show_potassium=0x7f070016;
-        public static final int show_protein=0x7f070010;
-        public static final int show_sat_fat=0x7f070012;
-        public static final int show_sodium=0x7f070015;
-        public static final int show_sugar=0x7f070018;
-        public static final int show_trans_fat=0x7f070013;
+        public static final int show_calcium=0x7f07001b;
+        public static final int show_cals=0x7f070010;
+        public static final int show_carbs=0x7f070011;
+        public static final int show_chol=0x7f070016;
+        public static final int show_fat=0x7f070013;
+        public static final int show_fibre=0x7f070019;
+        public static final int show_iron=0x7f07001c;
+        public static final int show_potassium=0x7f070018;
+        public static final int show_protein=0x7f070012;
+        public static final int show_sat_fat=0x7f070014;
+        public static final int show_sodium=0x7f070017;
+        public static final int show_sugar=0x7f07001a;
+        public static final int show_trans_fat=0x7f070015;
         public static final int what_have_been_eating=0x7f070003;
         public static final int where_eating=0x7f070002;
     }

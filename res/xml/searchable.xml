@@ -4,6 +4,6 @@
     android:label="@string/app_name"
     android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
     android:includeInGlobalSearch="true"
-    android:searchSuggestAuthority="org.comparemydinner.activity.RecentSearchesProvider"
+    android:searchSuggestAuthority="org.comparemydinner.RecentSearchesProvider"
     android:searchSuggestSelection=" ?" >
 </searchable>

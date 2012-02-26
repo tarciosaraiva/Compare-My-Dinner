@@ -1,3 +1,18 @@
+/*
+  Copyright 2012 Tarcio Saraiva
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
 package org.comparemydinner.activity;
 
 import static org.comparemydinner.util.Utils.MENU_FEEDBACK;
@@ -6,26 +21,32 @@ import static org.comparemydinner.util.Utils.PROGRESS_DIALOG;
 
 import org.comparemydinner.R;
 import org.comparemydinner.model.Food;
-import org.comparemydinner.model.JSONRecipeResponse;
+import org.comparemydinner.model.JSONFoodResponse;
 import org.comparemydinner.model.Serving;
 import org.comparemydinner.service.GetFoodService;
-import org.comparemydinner.task.BaseAsyncTask;
 import org.comparemydinner.util.PreferenceHelper;
 import org.comparemydinner.util.Utils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-public class CompareActivity extends Activity {
+public class CompareActivity extends Activity implements OnClickListener {
 
   private static final String TAG = "CompareActivity";
 
@@ -63,6 +84,8 @@ public class CompareActivity extends Activity {
 
   private LinearLayout rightColumn;
 
+  private Button attributionBtn;
+
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -73,18 +96,38 @@ public class CompareActivity extends Activity {
     // populate the elements
     leftColumn = (LinearLayout) findViewById(R.id.leftColumn);
     rightColumn = (LinearLayout) findViewById(R.id.rightColumn);
+    attributionBtn = (Button) findViewById(R.id.attributionBtn);
+    attributionBtn.setOnClickListener(this);
 
     foodOne = getIntent().getLongExtra("foodOne", -1);
     foodTwo = getIntent().getLongExtra("foodTwo", -1);
 
-    new GetRecipesProgressTask(this, PROGRESS_DIALOG).execute(String.valueOf(foodOne));
-    new GetRecipesProgressTask(this, PROGRESS_DIALOG).execute(String.valueOf(foodTwo));
+    Log.d(TAG, Utils.buildStr("Found food id: ", String.valueOf(foodOne)));
+    Log.d(TAG, Utils.buildStr("Found food id: ", String.valueOf(foodTwo)));
+
+    final String[] foodIds = { String.valueOf(foodOne), String.valueOf(foodTwo) };
+
+    getFood(foodIds);
+  }
+
+  private void getFood(final String... foodIds) {
+    showDialog(PROGRESS_DIALOG);
+
+    for (final String food : foodIds) {
+      doSearch(food);
+    }
+
+    removeDialog(PROGRESS_DIALOG);
   }
 
   private void processFood(final Food food) {
-    Serving serving = food.getServings().getServingList().get(0);
+    final Serving serving = food.getServings().getServing().get(0);
 
     String measuringUnit = serving.getMetric_serving_unit();
+    if (null == measuringUnit) {
+      measuringUnit = "g";
+    }
+
     boolean addTofirstColumn = true;
 
     if (food.getFood_id() != foodOne) {
@@ -92,10 +135,30 @@ public class CompareActivity extends Activity {
     }
 
     createTextView(food.getFood_name(), R.layout.food_name_view, addTofirstColumn);
-    createTextView(serving.getServing_description(), R.layout.food_serving_view, addTofirstColumn);
+
+    String servingSize = "";
+
+    if (null == serving.getMetric_serving_unit()) {
+      servingSize = serving.getServing_description();
+    } else {
+      servingSize = Utils.buildStr(String.valueOf(serving.getMetric_serving_amount()), " ",
+          serving.getMetric_serving_unit());
+    }
+
+    createTextView(servingSize, R.layout.food_serving_view, addTofirstColumn);
 
     if (prefHelper.canShowCalories()) {
-      createTextView(CALS + "\n" + String.valueOf(serving.getCalories()) + " kcal",
+      final String calMeasure = prefHelper.getCalorieMeasure();
+
+      float calories = serving.getCalories();
+
+      if ("cal".equals(calMeasure)) {
+        calories = calories / 1000;
+      } else if ("kj".equals(calMeasure)) {
+        calories = (float) (calories * 4.184);
+      }
+
+      createTextView(CALS + "\n" + String.format("%8.0f", calories) + " " + calMeasure,
           R.layout.nutrient_info_view, addTofirstColumn);
     }
 
@@ -161,14 +224,19 @@ public class CompareActivity extends Activity {
     }
   }
 
-  private void createTextView(String text, int viewToInflate, boolean addTofirstColumn) {
-    TextView textView = (TextView) getLayoutInflater().inflate(viewToInflate, null);
+  private void createTextView(final String text, final int viewToInflate,
+      final boolean addTofirstColumn) {
+    final TextView textView = (TextView) getLayoutInflater().inflate(viewToInflate, null);
     textView.setText(text);
 
+    final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    lp.setMargins(10, 10, 10, 10);
+
     if (addTofirstColumn) {
-      leftColumn.addView(textView);
+      leftColumn.addView(textView, lp);
     } else {
-      rightColumn.addView(textView);
+      rightColumn.addView(textView, lp);
     }
   }
 
@@ -177,48 +245,46 @@ public class CompareActivity extends Activity {
     return Utils.getProgressDialog(id, "Fetching food data", CompareActivity.this);
   }
 
-  // sub class to get the recipe
-  class GetRecipesProgressTask extends BaseAsyncTask<JSONRecipeResponse> {
+  private JSONFoodResponse doSearch(final String query) {
+    JSONFoodResponse response = null;
 
-    public GetRecipesProgressTask(Activity activity, int dialogId) {
-      super(activity, dialogId);
-    }
+    Log.d(TAG, Utils.buildStr("Getting food id [", query, "]"));
 
-    @Override
-    protected JSONRecipeResponse doSearch(final String query) {
-      JSONRecipeResponse response = null;
+    String jsonMsg = new GetFoodService().execute(query);
 
-      Log.d(TAG, Utils.buildStr("Getting food id [", query, "]"));
+    try {
+      final JSONObject object = (JSONObject) new JSONTokener(jsonMsg).nextValue();
+      final JSONObject foodObject = object.getJSONObject("food");
+      final JSONObject servingsObject = foodObject.getJSONObject("servings");
 
-      String jsonMsg = new GetFoodService().execute(query);
+      JSONArray arrayOfServings = null;
 
       try {
-        if (jsonMsg.indexOf("[") < 0) {
-          jsonMsg = jsonMsg.replace("\"serving\":", "\"serving\": [");
-          jsonMsg = jsonMsg.replace("} } }}", "}] } }}");
-        }
-        response = new Gson().fromJson(jsonMsg, JSONRecipeResponse.class);
-      } catch (Exception e) {
+        arrayOfServings = servingsObject.getJSONArray("serving");
+      } catch (final Exception e) {
         Log.e(TAG, e.getMessage());
-        response = new JSONRecipeResponse();
       }
 
-      return response;
+      if (arrayOfServings == null) {
+        jsonMsg = jsonMsg.replace("\"serving\":", "\"serving\": [");
+        jsonMsg = jsonMsg.replace("} } }}", "}] } }}");
+      }
+
+      response = new Gson().fromJson(jsonMsg, JSONFoodResponse.class);
+
+      if (response != null && response.getFood() != null) {
+        processFood(response.getFood());
+      }
+    } catch (final Exception e) {
+      Log.e(TAG, e.getMessage());
+      response = new JSONFoodResponse();
     }
 
-    @Override
-    protected void postProcessAfterDialogRemoval(final JSONRecipeResponse result) {
-      if (null != result.getFood()) {
-        processFood(result.getFood());
-      } else {
-        Toast.makeText(getApplication(), "Sorry, could not obtain results!", Toast.LENGTH_SHORT)
-            .show();
-      }
-    }
+    return response;
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
+  public boolean onCreateOptionsMenu(final Menu menu) {
     super.onCreateOptionsMenu(menu);
 
     menu.add(0, MENU_NEW_COMPARISON, 0, R.string.menu_new_comparison).setIcon(
@@ -241,5 +307,11 @@ public class CompareActivity extends Activity {
 
     return false;
 
+  }
+
+  @Override
+  public void onClick(final View v) {
+    final Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://platform.fatsecret.com"));
+    startActivity(i);
   }
 }

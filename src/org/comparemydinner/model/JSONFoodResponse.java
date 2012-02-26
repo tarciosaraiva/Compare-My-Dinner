@@ -15,16 +15,16 @@
  */
 package org.comparemydinner.model;
 
-public class JSONSearchResponse {
+public class JSONFoodResponse {
 
-  private Foods foods;
+  private Food food;
 
-  public Foods getFoods() {
-    return foods;
+  public Food getFood() {
+    return food;
   }
 
-  public void setFoods(final Foods foods) {
-    this.foods = foods;
+  public void setFood(final Food food) {
+    this.food = food;
   }
 
 }

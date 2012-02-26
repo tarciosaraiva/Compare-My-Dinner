@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2012 Tarcio Saraiva
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
 <resources>
 
     <string name="app_name">Compare My Dinner</string>
@@ -31,13 +46,28 @@
     <string name="show_calcium">Show Calcium</string>
     <string name="show_iron">Show Iron</string>
 
+    <string-array name="cals_measure_entries">
+        <item>KCalories (kcal)</item>
+        <item>Kilojoules (kj)</item>
+        <item>Calories (cal)</item>
+    </string-array>
+
+    <string-array name="cals_measure_vals">
+        <item>kcal</item>
+        <item>kj</item>
+        <item>cal</item>
+    </string-array>
+
     <string name="pref_display_summary">Choose which nutrients to display</string>
 
     <string name="about_msg">This app was developed during the Global Android Dev Camp 2012 in Melbourne, Australia.\n\n
-        The purpose of this app is to better inform people about what they are eating. The nutrients we consume play an important role in our energy levels and I believe the better informed you are, a better life style you can get.\n
-        It may not have all the food in the world but will sure provide you with some good information for basic foods - things like steak, pizza, pasta, rice, etc etc.\n
+        This app was created to better inform people about what they are eating. The nutrients we consume play an important role in our energy levels and I believe the better informed you are, a better life style you can get.\n\n
+        It may not have all the food in the world but will sure provide you with some basic information for foods like steak, pizza, pasta, rice, etc.\n\n
         I thank @jamesgiang for its initiative in bringing people together and Daniel Bradby for supporting the event and providing the venue.\n\n
+        Last but not less important, I thank my wife for her patience with my little adventures.\n\n
         Keep in touch - @tarciosaraiva</string>
     <string name="app_name_settings">Compare My Dinner Preferences</string>
+    <string name="powered_by_fatsecret">Powered by FatSecret</string>
+    <string name="cals_measure">Calories Measure</string>
 
 </resources>

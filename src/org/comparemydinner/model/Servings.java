@@ -15,16 +15,18 @@
  */
 package org.comparemydinner.model;
 
-public class JSONSearchResponse {
+import java.util.List;
 
-  private Foods foods;
+public class Servings {
 
-  public Foods getFoods() {
-    return foods;
+  private List<Serving> serving;
+
+  public List<Serving> getServing() {
+    return serving;
   }
 
-  public void setFoods(final Foods foods) {
-    this.foods = foods;
+  public void setServing(final List<Serving> serving) {
+    this.serving = serving;
   }
 
 }

@@ -1,3 +1,18 @@
+/*
+  Copyright 2012 Tarcio Saraiva
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
 package org.comparemydinner.activity;
 
 import static android.content.Intent.ACTION_SEARCH;
@@ -21,14 +36,17 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.MatrixCursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -37,18 +55,24 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-public class SearchListActivity extends ListActivity implements OnItemClickListener {
+public class SearchListActivity extends ListActivity implements OnItemClickListener,
+    OnClickListener {
 
   private static final String TAG = "SearchActivity";
+
+  private Button attributionBtn;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.search);
 
+    attributionBtn = (Button) findViewById(R.id.attributionBtn);
+    attributionBtn.setOnClickListener(this);
+
     handleIntent(getIntent());
 
-    ListView lv = getListView();
+    final ListView lv = getListView();
     lv.setTextFilterEnabled(true);
     lv.setOnItemClickListener(this);
   }
@@ -68,7 +92,7 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
 
       Log.d(TAG, Utils.buildStr("Searching for food [", query, "]"));
 
-      SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+      final SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
           RecentSearchesProvider.AUTHORITY, RecentSearchesProvider.MODE);
       suggestions.saveRecentQuery(query, null);
 
@@ -77,12 +101,12 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
   }
 
   private void processDisplayFor(final Foods foods) {
-    String[] columns = { "_id", "name", "descr" };
-    int[] viewsToBind = { R.id.food_id, R.id.food_name, R.id.food_description };
+    final String[] columns = { "_id", "name", "descr" };
+    final int[] viewsToBind = { R.id.food_id, R.id.food_name, R.id.food_description };
 
-    MatrixCursor cursor = new MatrixCursor(columns);
+    final MatrixCursor cursor = new MatrixCursor(columns);
 
-    for (Food food : foods.getFood()) {
+    for (final Food food : foods.getFood()) {
       cursor.addRow(food.getColumnValuesForCursor());
     }
 
@@ -95,13 +119,14 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
   }
 
   @Override
-  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+  public void onItemClick(final AdapterView<?> parent, final View view, final int position,
+      final long id) {
     Utils.goHome(SearchListActivity.this, id, ((TextView) ((LinearLayout) view).getChildAt(1))
         .getText().toString());
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
+  public boolean onCreateOptionsMenu(final Menu menu) {
     super.onCreateOptionsMenu(menu);
 
     menu.add(0, MENU_ABOUT, 0, R.string.menu_about).setIcon(android.R.drawable.ic_menu_help);
@@ -133,7 +158,7 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
   // 1) params 2) progress 3) results
   class SearchProgressTask extends BaseAsyncTask<JSONSearchResponse> {
 
-    public SearchProgressTask(Activity activity, int dialogId) {
+    public SearchProgressTask(final Activity activity, final int dialogId) {
       super(activity, dialogId);
     }
 
@@ -142,9 +167,11 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
       JSONSearchResponse response = null;
       final String jsonMsg = new SearchFoodService().execute(query);
 
+      Log.d(TAG, Utils.buildStr("Response: [", jsonMsg, "]"));
+
       try {
         response = new Gson().fromJson(jsonMsg, JSONSearchResponse.class);
-      } catch (Exception e) {
+      } catch (final Exception e) {
         response = new JSONSearchResponse();
         Log.e(TAG, e.getMessage());
       }
@@ -163,6 +190,12 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
       }
     }
 
+  }
+
+  @Override
+  public void onClick(final View v) {
+    final Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://platform.fatsecret.com"));
+    startActivity(i);
   }
 
 }

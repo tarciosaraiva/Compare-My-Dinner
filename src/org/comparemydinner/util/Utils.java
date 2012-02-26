@@ -1,3 +1,18 @@
+/*
+  Copyright 2012 Tarcio Saraiva
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
 package org.comparemydinner.util;
 
 import org.comparemydinner.R;
@@ -28,6 +43,10 @@ public class Utils {
 
   public static final int MENU_FEEDBACK = 4;
 
+  public static final String EMPTY = "";
+
+  public static final String TEMP_FOOD_FILE = "foods_file";
+
   public static void goHome(final Context context, final long recipeId, final String recipeName) {
     final Intent intent = new Intent(context, MainActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -40,7 +59,8 @@ public class Utils {
     context.startActivity(intent);
   }
 
-  public static Dialog getProgressDialog(int dialogId, final String msg, final Activity activity) {
+  public static Dialog getProgressDialog(final int dialogId, final String msg,
+      final Activity activity) {
     Dialog dialog = null;
 
     switch (dialogId) {
@@ -59,21 +79,22 @@ public class Utils {
     String heading = activity.getResources().getText(R.string.app_name) + "\n";
 
     try {
-      PackageInfo pi = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
+      final PackageInfo pi = activity.getPackageManager().getPackageInfo(activity.getPackageName(),
+          0);
       heading += "v" + pi.versionName + "\n\n";
-    } catch (NameNotFoundException e) {
+    } catch (final NameNotFoundException e) {
       e.printStackTrace();
     }
 
     // Build alert dialog
-    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+    final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
     dialogBuilder.setTitle(heading);
-    View aboutView = activity.getLayoutInflater().inflate(R.layout.dialog_about, null);
+    final View aboutView = activity.getLayoutInflater().inflate(R.layout.dialog_about, null);
     dialogBuilder.setView(aboutView);
     dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
       @Override
-      public void onClick(DialogInterface dialog, int whichButton) {
+      public void onClick(final DialogInterface dialog, final int whichButton) {
         dialog.dismiss();
       }
 
@@ -84,14 +105,14 @@ public class Utils {
     dialogBuilder.show();
   }
 
-  public static String buildStr(String... args) {
+  public static String buildStr(final String... args) {
     if (null == args) {
       return "";
     }
 
-    StringBuffer strBuff = new StringBuffer();
+    final StringBuffer strBuff = new StringBuffer();
 
-    for (String str : args) {
+    for (final String str : args) {
       strBuff.append(str);
     }
 
@@ -101,9 +122,9 @@ public class Utils {
   public static void invokeEmail(final Context context) {
     final Intent emailIntent = new Intent(Intent.ACTION_SEND);
     emailIntent.setType("text/plain");
-    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "webmaster@website.com" });
-    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "my subject");
-    emailIntent.putExtra(Intent.EXTRA_TEXT, "body text");
-    context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "comparemydinner@gmail.com" });
+    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Compare My Dinner - Feedback");
+    emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+    context.startActivity(Intent.createChooser(emailIntent, "Send feedback"));
   }
 }

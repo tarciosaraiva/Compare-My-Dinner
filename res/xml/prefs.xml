@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2012 Tarcio Saraiva
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <CheckBoxPreference
+        android:defaultValue="true"
         android:key="show_cals"
-        android:title="@string/show_cals"
-        android:defaultValue="true" />
+        android:title="@string/show_cals" />
     <CheckBoxPreference
+        android:defaultValue="true"
         android:key="show_carbs"
-        android:title="@string/show_carbs"
-        android:defaultValue="true" />
+        android:title="@string/show_carbs" />
     <CheckBoxPreference
+        android:defaultValue="true"
         android:key="show_protein"
-        android:title="@string/show_protein"
-        android:defaultValue="true" />
+        android:title="@string/show_protein" />
     <CheckBoxPreference
+        android:defaultValue="true"
         android:key="show_fat"
-        android:title="@string/show_fat"
-        android:defaultValue="true" />
+        android:title="@string/show_fat" />
     <CheckBoxPreference
         android:key="show_sat_fat"
         android:title="@string/show_sat_fat" />
@@ -24,9 +39,9 @@
         android:key="show_trans_fat"
         android:title="@string/show_trans_fat" />
     <CheckBoxPreference
+        android:defaultValue="true"
         android:key="show_chol"
-        android:title="@string/show_chol"
-        android:defaultValue="true" />
+        android:title="@string/show_chol" />
     <CheckBoxPreference
         android:key="show_sodium"
         android:title="@string/show_sodium" />
@@ -45,5 +60,11 @@
     <CheckBoxPreference
         android:key="show_iron"
         android:title="@string/show_iron" />
+
+    <ListPreference
+        android:entries="@array/cals_measure_entries"
+        android:entryValues="@array/cals_measure_vals"
+        android:key="cals_measure"
+        android:title="@string/cals_measure" />
 
 </PreferenceScreen>

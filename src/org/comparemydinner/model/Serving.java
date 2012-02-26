@@ -1,3 +1,18 @@
+/*
+  Copyright 2012 Tarcio Saraiva
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
 package org.comparemydinner.model;
 
 public class Serving {
@@ -48,7 +63,7 @@ public class Serving {
     return serving_id;
   }
 
-  public void setServing_id(long serving_id) {
+  public void setServing_id(final long serving_id) {
     this.serving_id = serving_id;
   }
 
@@ -56,7 +71,7 @@ public class Serving {
     return serving_description;
   }
 
-  public void setServing_description(String serving_description) {
+  public void setServing_description(final String serving_description) {
     this.serving_description = serving_description;
   }
 
@@ -64,7 +79,7 @@ public class Serving {
     return metric_serving_amount;
   }
 
-  public void setMetric_serving_amount(float metric_serving_amount) {
+  public void setMetric_serving_amount(final float metric_serving_amount) {
     this.metric_serving_amount = metric_serving_amount;
   }
 
@@ -72,7 +87,7 @@ public class Serving {
     return metric_serving_unit;
   }
 
-  public void setMetric_serving_unit(String metric_serving_unit) {
+  public void setMetric_serving_unit(final String metric_serving_unit) {
     this.metric_serving_unit = metric_serving_unit;
   }
 
@@ -80,7 +95,7 @@ public class Serving {
     return calories;
   }
 
-  public void setCalories(float calories) {
+  public void setCalories(final float calories) {
     this.calories = calories;
   }
 
@@ -88,7 +103,7 @@ public class Serving {
     return carbohydrate;
   }
 
-  public void setCarbohydrate(float carbohydrate) {
+  public void setCarbohydrate(final float carbohydrate) {
     this.carbohydrate = carbohydrate;
   }
 
@@ -96,7 +111,7 @@ public class Serving {
     return protein;
   }
 
-  public void setProtein(float protein) {
+  public void setProtein(final float protein) {
     this.protein = protein;
   }
 
@@ -104,7 +119,7 @@ public class Serving {
     return fat;
   }
 
-  public void setFat(float fat) {
+  public void setFat(final float fat) {
     this.fat = fat;
   }
 
@@ -112,7 +127,7 @@ public class Serving {
     return saturated_fat;
   }
 
-  public void setSaturated_fat(float saturated_fat) {
+  public void setSaturated_fat(final float saturated_fat) {
     this.saturated_fat = saturated_fat;
   }
 
@@ -120,7 +135,7 @@ public class Serving {
     return polyunsaturated_fat;
   }
 
-  public void setPolyunsaturated_fat(float polyunsaturated_fat) {
+  public void setPolyunsaturated_fat(final float polyunsaturated_fat) {
     this.polyunsaturated_fat = polyunsaturated_fat;
   }
 
@@ -128,7 +143,7 @@ public class Serving {
     return monounsaturated_fat;
   }
 
-  public void setMonounsaturated_fat(float monounsaturated_fat) {
+  public void setMonounsaturated_fat(final float monounsaturated_fat) {
     this.monounsaturated_fat = monounsaturated_fat;
   }
 
@@ -136,7 +151,7 @@ public class Serving {
     return trans_fat;
   }
 
-  public void setTrans_fat(float trans_fat) {
+  public void setTrans_fat(final float trans_fat) {
     this.trans_fat = trans_fat;
   }
 
@@ -144,7 +159,7 @@ public class Serving {
     return cholesterol;
   }
 
-  public void setCholesterol(float cholesterol) {
+  public void setCholesterol(final float cholesterol) {
     this.cholesterol = cholesterol;
   }
 
@@ -152,7 +167,7 @@ public class Serving {
     return sodium;
   }
 
-  public void setSodium(float sodium) {
+  public void setSodium(final float sodium) {
     this.sodium = sodium;
   }
 
@@ -160,7 +175,7 @@ public class Serving {
     return potassium;
   }
 
-  public void setPotassium(float potassium) {
+  public void setPotassium(final float potassium) {
     this.potassium = potassium;
   }
 
@@ -168,7 +183,7 @@ public class Serving {
     return fiber;
   }
 
-  public void setFiber(float fiber) {
+  public void setFiber(final float fiber) {
     this.fiber = fiber;
   }
 
@@ -176,7 +191,7 @@ public class Serving {
     return sugar;
   }
 
-  public void setSugar(float sugar) {
+  public void setSugar(final float sugar) {
     this.sugar = sugar;
   }
 
@@ -184,7 +199,7 @@ public class Serving {
     return vitamin_a;
   }
 
-  public void setVitamin_a(int vitamin_a) {
+  public void setVitamin_a(final int vitamin_a) {
     this.vitamin_a = vitamin_a;
   }
 
@@ -192,7 +207,7 @@ public class Serving {
     return vitamin_c;
   }
 
-  public void setVitamin_c(int vitamin_c) {
+  public void setVitamin_c(final int vitamin_c) {
     this.vitamin_c = vitamin_c;
   }
 
@@ -200,7 +215,7 @@ public class Serving {
     return calcium;
   }
 
-  public void setCalcium(int calcium) {
+  public void setCalcium(final int calcium) {
     this.calcium = calcium;
   }
 
@@ -208,7 +223,7 @@ public class Serving {
     return iron;
   }
 
-  public void setIron(int iron) {
+  public void setIron(final int iron) {
     this.iron = iron;
   }
 

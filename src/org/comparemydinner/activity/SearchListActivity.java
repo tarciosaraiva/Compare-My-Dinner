@@ -36,14 +36,12 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.MatrixCursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -55,8 +53,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-public class SearchListActivity extends ListActivity implements OnItemClickListener,
-    OnClickListener {
+public class SearchListActivity extends ListActivity implements OnItemClickListener {
 
   private static final String TAG = "SearchActivity";
 
@@ -68,7 +65,7 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
     setContentView(R.layout.search);
 
     attributionBtn = (Button) findViewById(R.id.attributionBtn);
-    attributionBtn.setOnClickListener(this);
+    Utils.configureAttributionButton(attributionBtn, this);
 
     handleIntent(getIntent());
 
@@ -79,8 +76,6 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
 
   @Override
   protected void onNewIntent(final Intent intent) {
-    Log.d(TAG, "onNewIntent");
-
     setIntent(intent);
     handleIntent(intent);
   }
@@ -190,12 +185,6 @@ public class SearchListActivity extends ListActivity implements OnItemClickListe
       }
     }
 
-  }
-
-  @Override
-  public void onClick(final View v) {
-    final Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://platform.fatsecret.com"));
-    startActivity(i);
   }
 
 }

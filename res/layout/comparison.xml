@@ -19,7 +19,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout style="@style/header" >
+    <LinearLayout style="@style/header">
         <ImageView
             android:id="@+id/imageView1"
             style="@style/header_logo" />
@@ -32,16 +32,15 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="fill_parent"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
         android:orientation="horizontal" >
 
         <ScrollView
             android:id="@+id/scroll1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp">
 
@@ -56,9 +55,9 @@
 
         <ScrollView
             android:id="@+id/scroll2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp">
 

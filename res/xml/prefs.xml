@@ -62,6 +62,7 @@
         android:title="@string/show_iron" />
 
     <ListPreference
+        android:defaultValue="kj"
         android:entries="@array/cals_measure_entries"
         android:entryValues="@array/cals_measure_vals"
         android:key="cals_measure"

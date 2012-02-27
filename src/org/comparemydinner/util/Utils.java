@@ -15,6 +15,9 @@
  */
 package org.comparemydinner.util;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import org.comparemydinner.R;
 import org.comparemydinner.activity.MainActivity;
 
@@ -27,7 +30,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class Utils {
 
@@ -127,4 +134,27 @@ public class Utils {
     emailIntent.putExtra(Intent.EXTRA_TEXT, "");
     context.startActivity(Intent.createChooser(emailIntent, "Send feedback"));
   }
+
+  public static void cleanTempFile(final String tag, final Activity activity) {
+    try {
+      final FileOutputStream fos = activity.openFileOutput(TEMP_FOOD_FILE, Context.MODE_PRIVATE);
+      fos.write(EMPTY.getBytes());
+      fos.close();
+    } catch (final IOException e) {
+      Log.e(tag, Utils.buildStr("Could not handle the file: ", e.getMessage()));
+    }
+  }
+
+  public static void configureAttributionButton(final Button button, final Activity activity) {
+    button.setOnClickListener(new OnClickListener() {
+
+      @Override
+      public void onClick(final View v) {
+        final Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://platform.fatsecret.com"));
+        activity.startActivity(i);
+      }
+
+    });
+  }
+
 }

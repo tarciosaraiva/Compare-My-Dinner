@@ -18,7 +18,7 @@
     android:installLocation="auto"
     package="org.comparemydinner"
     android:versionCode="1"
-    android:versionName="1.0a" >
+    android:versionName="1.1a" >
 
     <supports-screens
         android:anyDensity="true"

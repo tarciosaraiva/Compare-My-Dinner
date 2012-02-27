@@ -36,4 +36,5 @@ public class PreferencesActivity extends PreferenceActivity implements
   @Override
   public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
   }
+
 }

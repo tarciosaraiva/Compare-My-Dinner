@@ -32,21 +32,17 @@ import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-public class CompareActivity extends Activity implements OnClickListener {
+public class CompareActivity extends Activity {
 
   private static final String TAG = "CompareActivity";
 
@@ -97,13 +93,10 @@ public class CompareActivity extends Activity implements OnClickListener {
     leftColumn = (LinearLayout) findViewById(R.id.leftColumn);
     rightColumn = (LinearLayout) findViewById(R.id.rightColumn);
     attributionBtn = (Button) findViewById(R.id.attributionBtn);
-    attributionBtn.setOnClickListener(this);
+    Utils.configureAttributionButton(attributionBtn, this);
 
     foodOne = getIntent().getLongExtra("foodOne", -1);
     foodTwo = getIntent().getLongExtra("foodTwo", -1);
-
-    Log.d(TAG, Utils.buildStr("Found food id: ", String.valueOf(foodOne)));
-    Log.d(TAG, Utils.buildStr("Found food id: ", String.valueOf(foodTwo)));
 
     final String[] foodIds = { String.valueOf(foodOne), String.valueOf(foodTwo) };
 
@@ -153,12 +146,12 @@ public class CompareActivity extends Activity implements OnClickListener {
       float calories = serving.getCalories();
 
       if ("cal".equals(calMeasure)) {
-        calories = calories / 1000;
+        calories = calories / 10;
       } else if ("kj".equals(calMeasure)) {
         calories = (float) (calories * 4.184);
       }
 
-      createTextView(CALS + "\n" + String.format("%8.0f", calories) + " " + calMeasure,
+      createTextView(CALS + "\n" + String.format("%8.0f", calories).trim() + " " + calMeasure,
           R.layout.nutrient_info_view, addTofirstColumn);
     }
 
@@ -309,9 +302,4 @@ public class CompareActivity extends Activity implements OnClickListener {
 
   }
 
-  @Override
-  public void onClick(final View v) {
-    final Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://platform.fatsecret.com"));
-    startActivity(i);
-  }
 }

@@ -40,6 +40,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -75,7 +76,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
       @Override
       public void onClick(final View v) {
-        cleanTempFile();
+        Utils.cleanTempFile(TAG, MainActivity.this);
 
         final Intent intent = new Intent(MainActivity.this, CompareActivity.class);
         intent.putExtra("foodOne", foodOneId);
@@ -96,52 +97,60 @@ public class MainActivity extends Activity implements OnClickListener {
     Log.d(TAG, "Recipe Name: " + intentFoodName);
 
     if (intentFoodId > -1) {
-
       try {
-
         final FileOutputStream fos = openFileOutput(TEMP_FOOD_FILE, Context.MODE_APPEND);
         fos.write(String.valueOf(intentFoodId).getBytes());
         fos.write(String.valueOf(DASH).getBytes());
         fos.write(String.valueOf(intentFoodName).getBytes());
         fos.write(String.valueOf(HASH).getBytes());
         fos.close();
-
-        final FileInputStream fis = openFileInput(TEMP_FOOD_FILE);
-
-        final StringBuffer strContent = new StringBuffer(EMPTY);
-        int ch;
-
-        while ((ch = fis.read()) != -1) {
-          strContent.append((char) ch);
-        }
-
-        fis.close();
-
-        final StringTokenizer strToken = new StringTokenizer(strContent.toString(), HASH);
-        int count = 0;
-
-        while (strToken.hasMoreTokens()) {
-          final String str = strToken.nextToken();
-
-          final String foodId = str.substring(0, str.indexOf(DASH));
-          final String foodName = str.substring(str.indexOf(DASH) + 1);
-
-          if (count == 0) {
-            disableSearchButtonAndModifyText(foodOne, foodName);
-            foodOneId = Long.valueOf(foodId);
-          } else {
-            disableSearchButtonAndModifyText(foodTwo, foodName);
-            foodTwoId = Long.valueOf(foodId);
-
-            foodCompareRow.setVisibility(View.VISIBLE);
-          }
-
-          count++;
-        }
-
       } catch (final IOException e) {
-        Log.e(TAG, Utils.buildStr("Problem processing selection from search: ", e.getMessage()));
+        Log.e(TAG, e.getMessage());
+        Toast.makeText(
+            getApplication(),
+            "Oops! Perhaps you have your phone or SD Card in read only mode? "
+                + "Switch to write mode so I can store some data I need to work.",
+            Toast.LENGTH_SHORT).show();
       }
+    }
+
+    try {
+
+      final FileInputStream fis = openFileInput(TEMP_FOOD_FILE);
+
+      final StringBuffer strContent = new StringBuffer(EMPTY);
+      int ch;
+
+      while ((ch = fis.read()) != -1) {
+        strContent.append((char) ch);
+      }
+
+      fis.close();
+
+      final StringTokenizer strToken = new StringTokenizer(strContent.toString(), HASH);
+      int count = 0;
+
+      while (strToken.hasMoreTokens()) {
+        final String str = strToken.nextToken();
+
+        final String foodId = str.substring(0, str.indexOf(DASH));
+        final String foodName = str.substring(str.indexOf(DASH) + 1);
+
+        if (count == 0) {
+          disableSearchButtonAndModifyText(foodOne, foodName);
+          foodOneId = Long.valueOf(foodId);
+        } else {
+          disableSearchButtonAndModifyText(foodTwo, foodName);
+          foodTwoId = Long.valueOf(foodId);
+
+          foodCompareRow.setVisibility(View.VISIBLE);
+        }
+
+        count++;
+      }
+
+    } catch (final IOException e) {
+      Log.e(TAG, Utils.buildStr("Problem processing selection from search: ", e.getMessage()));
     }
 
     super.onResume();
@@ -186,16 +195,6 @@ public class MainActivity extends Activity implements OnClickListener {
   public void onClick(final View v) {
     Log.d(TAG, "Requesting search activity");
     onSearchRequested();
-  }
-
-  private void cleanTempFile() {
-    try {
-      final FileOutputStream fos = openFileOutput(TEMP_FOOD_FILE, Context.MODE_PRIVATE);
-      fos.write(EMPTY.getBytes());
-      fos.close();
-    } catch (final IOException e) {
-      Log.e(TAG, Utils.buildStr("Could not handle the file: ", e.getMessage()));
-    }
   }
 
 }

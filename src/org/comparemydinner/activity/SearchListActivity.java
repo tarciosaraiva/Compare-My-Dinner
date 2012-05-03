@@ -36,7 +36,6 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.MatrixCursor;
-import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.Menu;
@@ -52,18 +51,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
 
+@EActivity(R.layout.search)
 public class SearchListActivity extends ListActivity implements OnItemClickListener {
 
   private static final String TAG = "SearchActivity";
 
   private Button attributionBtn;
 
-  @Override
-  public void onCreate(final Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.search);
-
+  @AfterViews
+  void prepareSearchScreen() {
     attributionBtn = (Button) findViewById(R.id.attributionBtn);
     Utils.configureAttributionButton(attributionBtn, this);
 

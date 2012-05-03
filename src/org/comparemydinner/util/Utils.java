@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.comparemydinner.R;
-import org.comparemydinner.activity.MainActivity;
+import org.comparemydinner.activity.MainActivity_;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -55,7 +55,7 @@ public class Utils {
   public static final String TEMP_FOOD_FILE = "foods_file";
 
   public static void goHome(final Context context, final long recipeId, final String recipeName) {
-    final Intent intent = new Intent(context, MainActivity.class);
+    final Intent intent = new Intent(context, MainActivity_.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
     if (recipeId > -1) {

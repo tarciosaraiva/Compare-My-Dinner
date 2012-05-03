@@ -32,7 +32,6 @@ import org.comparemydinner.util.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +41,10 @@ import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
+
+@EActivity(R.layout.main)
 public class MainActivity extends Activity implements OnClickListener {
 
   private static final String HASH = "#";
@@ -56,11 +59,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
   private long foodOneId, foodTwoId;
 
-  @Override
-  public void onCreate(final Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.main);
-
+  @AfterViews
+  void displayMainScreen() {
     Log.d(TAG, "Assigning buttons from view");
 
     foodOne = (Button) findViewById(R.id.button1);
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements OnClickListener {
       public void onClick(final View v) {
         Utils.cleanTempFile(TAG, MainActivity.this);
 
-        final Intent intent = new Intent(MainActivity.this, CompareActivity.class);
+        final Intent intent = new Intent(getApplicationContext(), CompareActivity_.class);
         intent.putExtra("foodOne", foodOneId);
         intent.putExtra("foodTwo", foodTwoId);
 

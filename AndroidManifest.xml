@@ -35,35 +35,34 @@
     <application
         android:name=".CompareMyDinnerApplication"
         android:allowClearUserData="true"
-        android:debuggable="false"
+        android:debuggable="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.MainActivity_"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".activity.SearchListActivity" >
+                android:value=".activity.SearchListActivity_" >
             </meta-data>
         </activity>
         <activity
-            android:name=".activity.CompareActivity"
+            android:name=".activity.CompareActivity_"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".activity.PreferencesActivity"
+            android:name=".activity.PreferencesActivity_"
             android:label="@string/app_name_settings"
             android:theme="@android:style/Theme.Light" >
         </activity>
         <activity
-            android:name=".activity.SearchListActivity"
+            android:name=".activity.SearchListActivity_"
             android:icon="@drawable/logo"
             android:launchMode="singleTop" >
             <intent-filter>

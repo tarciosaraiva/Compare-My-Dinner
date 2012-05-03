@@ -33,9 +33,9 @@ public abstract class BaseFatSecretService {
 
   protected static final String METHOD_PARAM = "method=";
 
-  protected static final String CONSUMER_SECRET = "SECRET";
+  protected static final String CONSUMER_SECRET = "5a67b9df49a94ed5a239a99a1b63f2c0";
 
-  protected static final String CONSUMER_KEY = "KEY";
+  protected static final String CONSUMER_KEY = "774802266b47489ca10e114fc8da6f36";
 
   protected final DefaultHttpClient client = new DefaultHttpClient();
 

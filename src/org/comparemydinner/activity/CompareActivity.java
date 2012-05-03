@@ -32,7 +32,7 @@ import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.os.Bundle;
+import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +41,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.UiThread;
 
+@EActivity(R.layout.comparison)
 public class CompareActivity extends Activity {
 
   private static final String TAG = "CompareActivity";
@@ -82,11 +87,10 @@ public class CompareActivity extends Activity {
 
   private Button attributionBtn;
 
-  @Override
-  public void onCreate(final Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.comparison);
+  private ProgressDialog dialog;
 
+  @AfterViews
+  void populateNutrients() {
     prefHelper = new PreferenceHelper();
 
     // populate the elements
@@ -100,20 +104,29 @@ public class CompareActivity extends Activity {
 
     final String[] foodIds = { String.valueOf(foodOne), String.valueOf(foodTwo) };
 
+    dialog = (ProgressDialog) Utils.getProgressDialog(PROGRESS_DIALOG, "Loading foods..",
+        CompareActivity.this);
+
     getFood(foodIds);
   }
 
-  private void getFood(final String... foodIds) {
-    showDialog(PROGRESS_DIALOG);
+  @Background
+  void getFood(final String... foodIds) {
 
     for (final String food : foodIds) {
       doSearch(food);
     }
 
-    removeDialog(PROGRESS_DIALOG);
+    cancelDialog();
   }
 
-  private void processFood(final Food food) {
+  @UiThread
+  void cancelDialog() {
+    dialog.dismiss();
+  }
+
+  @UiThread
+  void processFood(final Food food) {
     final Serving serving = food.getServings().getServing().get(0);
 
     String measuringUnit = serving.getMetric_serving_unit();

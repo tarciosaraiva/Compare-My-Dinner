@@ -22,6 +22,9 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
+import com.googlecode.androidannotations.annotations.EActivity;
+
+@EActivity
 public class PreferencesActivity extends PreferenceActivity implements
     OnSharedPreferenceChangeListener {
 

@@ -4,8 +4,14 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="lib/signpost-commonshttp4-1.2.1.1.jar" sourcepath="/Users/tarcio/Projects/signpost/signpost-commonshttp4"/>
-	<classpathentry kind="lib" path="lib/signpost-core-1.2.1.1.jar" sourcepath="/Users/tarcio/Projects/signpost/signpost-core"/>
-	<classpathentry kind="lib" path="lib/gson-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/signpost-commonshttp4-1.2.1.1.jar" sourcepath="/Users/tarcio/Projects/signpost/signpost-commonshttp4"/>
+	<classpathentry exported="true" kind="lib" path="lib/signpost-core-1.2.1.1.jar" sourcepath="/Users/tarcio/Projects/signpost/signpost-core"/>
+	<classpathentry exported="true" kind="lib" path="lib/gson-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/androidannotations-2.5.1-api.jar"/>
+	<classpathentry kind="src" path=".apt_generated">
+		<attributes>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

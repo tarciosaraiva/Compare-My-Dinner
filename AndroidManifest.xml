@@ -17,8 +17,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="auto"
     package="org.comparemydinner"
-    android:versionCode="2"
-    android:versionName="1.0a" >
+    android:versionCode="3"
+    android:versionName="1.0b" >
 
     <supports-screens
         android:anyDensity="true"
@@ -35,7 +35,7 @@
     <application
         android:name=".CompareMyDinnerApplication"
         android:allowClearUserData="true"
-        android:debuggable="true"
+        android:debuggable="false"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar" >

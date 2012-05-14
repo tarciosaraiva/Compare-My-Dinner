@@ -17,27 +17,15 @@ package org.comparemydinner.activity;
 
 import org.comparemydinner.R;
 
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-import com.googlecode.androidannotations.annotations.EActivity;
-
-@EActivity
-public class PreferencesActivity extends PreferenceActivity implements
-    OnSharedPreferenceChangeListener {
+public class PreferencesActivity extends PreferenceActivity {
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.prefs);
-
-    getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-  }
-
-  @Override
-  public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
   }
 
 }
